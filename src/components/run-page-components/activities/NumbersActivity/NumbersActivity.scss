@@ -1,0 +1,95 @@
+$display-container-background-color: #e5e5e5;
+$dark-grey-color: #545454;
+$disabled-button-background-color: #d6d6d6;
+$disabled-button-color: #c1c1c1;
+
+.numbers-activity {
+  width: 100%;
+  height: 100%;
+
+  display: flex;
+  flex-direction: column;
+
+  & .icon-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+
+    & img {
+      width: 150px;
+    }
+  }
+
+  & .display-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    flex: 1;
+    background-color: $display-container-background-color;
+
+    & .display {
+      & h1 {
+        letter-spacing: 0.3em;
+        font-size: 65px;
+        color: #494949;
+        font-weight: 400;
+        margin-left: 0.15em;
+        text-align: center;
+
+        & .correct-answer {
+          font-size: 55px;
+        }
+      }
+    }
+  }
+
+  & .numpad-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    flex: 2;
+
+    & .numpad {
+      display: grid;
+      height: 85%;
+      grid-template-rows: repeat(4, minmax(0, 1fr));
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1rem;
+
+      & > button {
+        background-color: white;
+        color: #494949;
+        border-radius: 6px;
+        font-size: 32px;
+        transition: background-color 0.2s;
+        padding: 0.5rem;
+        font-weight: 500;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+
+        &.delete {
+          background-color: #34424c;
+        }
+
+        &.ok {
+          background-color: #73db4d;
+        }
+
+        &.action {
+          color: white;
+          font-size: 23px;
+        }
+      }
+
+      &.disabled {
+        & > button {
+          pointer-events: none;
+          background-color: $disabled-button-background-color;
+          color: $disabled-button-color;
+        }
+      }
+    }
+  }
+}

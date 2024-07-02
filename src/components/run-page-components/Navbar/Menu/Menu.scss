@@ -1,0 +1,58 @@
+$menu-background-color: #e0e0e0;
+$button-text-color: #767676;
+$disabled-button-text-color: #b9b9b9;
+
+.menu {
+  width: 35rem;
+  padding: 2rem 0 2rem 0;
+
+  background-color: $menu-background-color;
+  transition: 0.2s;
+  box-shadow: 1px 1px 5px 0px rgba(0,0,0,0.30);
+
+  & button {
+    width: 100%;
+    text-align: left;
+    color: $button-text-color;
+    cursor: inherit;
+    padding: 1rem 2rem;
+
+    &.major {
+      font-size: 1.6rem;
+    }
+
+    &.minor {
+      font-size: 1.4rem;
+    }
+
+    &:disabled {
+      color: $disabled-button-text-color;
+    }
+
+    &.action {
+      &:not(:disabled) {
+        cursor: pointer;
+
+        @media (hover: hover) {
+          &:hover {
+            background-color: $color-blue;
+            color: $color-white;
+          }
+        }
+      }
+    }
+  }
+
+  // &:after {
+  //   content: '';
+  //   position: absolute;
+  //   top: 0;
+  //   left: 14%;
+  //   width: 0;
+  //   height: 0;
+  //   border: 15px solid transparent;
+  //   border-bottom-color: $menu-background-color;
+  //   border-top: 0;
+  //   margin-top: -15px;
+  // }
+}

@@ -1,0 +1,77 @@
+@import '../../components/start-page-components/start-page-components.scss';
+
+$settings-border-color: #b8b8b8;
+
+.start-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  & .activity-menu {
+    width: 85%;
+  }
+
+  & .bottom-info {
+    margin-top: auto;
+    align-self: stretch;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 2rem 4rem;
+
+    & .right-side {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      font-size: 2.2rem;
+
+      & > div {
+        margin-left: 1rem;
+        margin-right: 15rem;
+
+        display: flex;
+
+        & > img {
+          min-width: 2rem;
+          height: 2rem;
+
+          &:not(:last-child) {
+            margin-right: 1.5rem;
+          }
+        }
+      }
+
+      @media only screen and (max-width: $bp-1000) {
+        margin-bottom: 3rem;
+      }
+    }
+
+    @media only screen and (max-width: $bp-1000) {
+      flex-direction: column-reverse;
+    }
+  }
+
+  & .activity-type-selector-container {
+    flex: 1;
+    width: 100%;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    & .activity-type-selector {
+      min-width: 20%;
+    }
+  }
+
+  & .settings {
+    position: absolute;
+    border: 1px solid $settings-border-color;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+}

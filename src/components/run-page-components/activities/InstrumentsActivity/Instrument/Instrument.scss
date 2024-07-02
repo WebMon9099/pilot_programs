@@ -1,0 +1,29 @@
+.instrument {
+  & > *:not(:first-child) {
+    position: absolute;
+    transform: translate(-50%, -50%);
+    top: 50%;
+    left: 50%;
+  }
+
+  & .transition {
+    transition: 0.5s;
+  }
+
+  & .bug {
+    width: 92%;
+    height: 92%;
+    position: absolute;
+    transform: translate(-50%, -50%);
+    top: 50%;
+    left: 50%;
+
+    & > img {
+      width: 10%;
+      position: relative;
+      top: 0;
+      left: 50%;
+      transform: translate(-50%) rotate(180deg);
+    }
+  }
+}

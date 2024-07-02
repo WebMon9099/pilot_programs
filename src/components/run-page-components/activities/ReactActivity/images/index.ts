@@ -1,0 +1,33 @@
+//  Define all the possible images:
+const images = [
+  require('./svgs/apple.svg').default,
+  require('./svgs/baseball.svg').default,
+  require('./svgs/cactus.svg').default,
+  require('./svgs/cake.svg').default,
+  require('./svgs/car.svg').default,
+  require('./svgs/chicken.svg').default,
+  require('./svgs/circle.svg').default,
+  require('./svgs/clouds.svg').default,
+  require('./svgs/cupcake.svg').default,
+  require('./svgs/duck.svg').default,
+  require('./svgs/fish.svg').default,
+  require('./svgs/gym.svg').default,
+  require('./svgs/heart.svg').default,
+  require('./svgs/hexagon.svg').default,
+  require('./svgs/house.svg').default,
+  require('./svgs/paw.svg').default,
+  require('./svgs/rectangle.svg').default,
+  require('./svgs/ship.svg').default,
+  require('./svgs/shop.svg').default,
+  require('./svgs/star.svg').default,
+  require('./svgs/sun.svg').default,
+  require('./svgs/tap.svg').default,
+  require('./svgs/trees.svg').default,
+  require('./svgs/volleyball.svg').default,
+  require('./svgs/water.svg').default,
+  require('./svgs/watermelon.svg').default,
+  require('./svgs/waves.svg').default,
+  require('./svgs/weight.svg').default,
+];
+
+export default images;

@@ -1,0 +1,21 @@
+.bar {
+  position: relative;
+  height: 100%;
+  width: 12vh;
+
+  & img {
+    height: 100%;
+    max-width: unset !important;
+  }
+
+  & .ball {
+    position: absolute;
+    z-index: 1;
+    width: 4vh;
+    height: 4vh;
+    transform: translate(-50%, -50%);
+    left: 50%;
+    background-color: #de5726;
+    border-radius: 50%;
+  }
+}

@@ -1,0 +1,36 @@
+.numpad {
+  display: grid;
+  grid-template-rows: repeat(4, 1fr);
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+
+  & button {
+    background-color: white;
+    padding: 2vh;
+    color: #494949;
+    font-size: 32px;
+    border-radius: 6px;
+    width: 12vh;
+    height: 12vh;
+    font-weight: 500;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+
+    &.delete {
+      background-color: #34424c;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      & svg {
+        height: 24pt;
+        width: 24pt;
+      }
+    }
+
+    &.ok {
+      background-color: #7edb4d;
+      color: white;
+      font-size: 32px;
+    }
+  }
+}

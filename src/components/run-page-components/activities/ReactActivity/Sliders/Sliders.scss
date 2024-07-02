@@ -1,0 +1,11 @@
+@import './Slider/Slider.scss';
+
+.react-sliders {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  & .react-slider {
+    height: 5%;
+  }
+}

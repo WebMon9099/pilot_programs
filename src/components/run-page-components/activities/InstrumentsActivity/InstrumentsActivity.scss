@@ -1,0 +1,118 @@
+@import './Instrument/Instrument.scss';
+
+$text-container-background-color: #e5e5e5;
+$button-background-color: #8e8e8e;
+
+.instruments-activity {
+  width: 100%;
+  height: 100%;
+
+  display: flex;
+  flex-direction: column;
+
+  & .text-container {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    background-color: $text-container-background-color;
+    height: 20%;
+
+    & p {
+      width: calc(100% / 3);
+      text-align: center;
+      font-size: 26px;
+      color: #494949;
+
+      @media only screen and (max-width: 1400px) {
+        width: calc(100% / 7);
+      }
+    }
+  }
+
+  & .dials {
+    display: flex;
+    align-items: center;
+    padding-top: 2rem;
+
+    & .dial {
+      width: calc(100% / 3);
+
+      & .instrument {
+        position: relative;
+        width: 60%;
+        margin: 0 auto;
+      }
+    }
+
+    & .toggle-button {
+      width: 65px;
+      height: 28px;
+      transform: scale(0.8);
+      margin-top: 16px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+  }
+
+  & .buttons-container {
+    display: flex;
+    margin: auto 0;
+
+    & .buttons {
+      width: calc(100% / 3);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      &.vertical {
+        flex-direction: column;
+
+        & button:not(:first-child) {
+          margin-top: 1rem;
+        }
+
+        & button:not(:last-child) {
+          margin-bottom: 1rem;
+        }
+      }
+
+      &.horizontal {
+        justify-content: space-around;
+
+        & button {
+          width: 120px;
+        }
+      }
+
+      & button {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: #34424c;
+        color: $color-white;
+        border-radius: 1vmin;
+        font-weight: bold;
+        transition: 0.1s;
+        font-size: 16px;
+        width: 150px;
+        height: 50px;
+
+        &:disabled {
+          background-color: $color-disabled;
+        }
+
+        // @media (hover: hover) {
+        //   &:hover:not(:disabled) {
+        //     background-color: $color-blue;
+        //   }
+        // }
+
+        &.horizontal {
+          & > img {
+            margin-right: 16px;
+          }
+        }
+      }
+    }
+  }
+}

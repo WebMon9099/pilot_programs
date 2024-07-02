@@ -1,0 +1,6 @@
+export const KEYCODE_MIN_LENGTH_TRAINING = 3;
+export const KEYCODE_MIN_LENGTH_NORMAL = 3;
+export const KEYCODE_MAX_LENGTH_TRAINING = 6;
+export const KEYCODE_MAX_LENGTH_NORMAL = 6;
+export const SOUND_BASE_DELAY_AMOUNT = 150;
+export const USER_INPUT_TIME = 15000;

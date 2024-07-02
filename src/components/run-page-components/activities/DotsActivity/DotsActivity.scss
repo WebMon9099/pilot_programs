@@ -1,0 +1,58 @@
+$button-background-color: #a5a5a5;
+
+.dots-activity {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  width: 40%;
+  height: 80%;
+
+  @media only screen and (max-width: $bp-1200) {
+    width: 50%;
+  }
+
+  & .canvas-container {
+    position: relative;
+
+    & .canvas-background {
+      top: 0;
+      position: absolute;
+      background-color: #232323;
+      border: 2px solid white;
+      border-radius: 50%;
+    }
+
+    & canvas {
+      top: 0;
+      position: absolute;
+      z-index: 1;
+    }
+  }
+
+  & .choices-buttons {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    margin-top: 5rem;
+
+    & button {
+      background-color: white;
+      color: #494949;
+      padding: 1.5rem 2rem;
+      width: 18%;
+      font-size: 20px;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+      border-radius: 50px;
+      // transition: background-color 0.2s;
+
+      // &:hover:not(:disabled) {
+      //   background-color: $color-blue;
+      // }
+
+      &:disabled {
+        background-color: $color-disabled;
+      }
+    }
+  }
+}

@@ -1,0 +1,32 @@
+.spin-activity {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background-color: black;
+
+  & .red-overlay {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    background-color: red;
+    animation: redoverlay;
+    animation-timing-function: ease-out;
+  }
+
+  & .crosshair {
+    position: absolute;
+    transform: translate(-50%, -50%);
+    top: 50%;
+    left: 50%;
+    width: 20vh;
+  }
+}
+
+@keyframes redoverlay {
+  from {
+    opacity: 0.75;
+  }
+  to {
+    opacity: 0;
+  }
+}

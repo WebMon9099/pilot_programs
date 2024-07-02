@@ -1,0 +1,1 @@
+export const IMAGES_CHANGE_BASE_INTERVAL = 2000;

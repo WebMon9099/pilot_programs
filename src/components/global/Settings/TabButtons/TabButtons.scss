@@ -1,0 +1,28 @@
+// .tab-buttons {
+//   & > button {
+//     padding: 4vh 0 2vh 0;
+//     color: #bfbfbf;
+
+//     &.activated {
+//       color: #606060;
+//     }
+
+//     &:not(:first-child) {
+//       margin-left: 2rem;
+//     }
+
+//     &:not(:last-child) {
+//       margin-right: 2rem;
+//     }
+//   }
+
+//   & .tab-buttons-slider {
+//     height: 1px;
+//     background-color: #e5e5e5;
+
+//     & .radio-slider {
+//       height: 1px;
+//       background-color: $color-blue;
+//     }
+//   }
+// }

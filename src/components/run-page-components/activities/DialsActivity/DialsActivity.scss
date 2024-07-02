@@ -1,0 +1,101 @@
+$display-container-background-color: #e5e5e5;
+$display-container-title-color: #848484;
+$keypad-button-background-color: #545454;
+
+.direction-activity {
+  display: flex;
+  justify-content: center;
+
+  & .text-container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  & .images-grid {
+    width: 75vh;
+    height: 75vh;
+    border-radius: 12px;
+    background-color: white;
+    box-shadow: 0 4px 6px 0 rgba(0, 0, 0, 0.1);
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-rows: repeat(3, minmax(0, 1fr));
+    gap: 4rem;
+    align-items: center;
+    justify-items: center;
+    padding: 4rem;
+
+    & img {
+      max-height: 100%;
+      max-width: 100%;
+    }
+  }
+
+  & .question-container {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+
+    & .display-container {
+      background-color: $display-container-background-color;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      height: 30%;
+
+      & h1 {
+        color: #494949;
+        font-weight: 400;
+        font-size: 38px;
+      }
+    }
+
+    & .numpad-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      height: 70%;
+
+      & .numpad {
+        display: grid;
+        grid-template-columns: auto auto auto auto;
+        gap: 20px;
+        font-weight: 500;
+        margin-top: 5rem;
+
+        & button {
+          transition: 0.2s background-color;
+          border-radius: 6px;
+
+          &:disabled {
+            background-color: $color-disabled;
+          }
+        }
+
+        & .number-key {
+          width: 85px;
+          height: 85px;
+          background-color: white;
+          color: #494949;
+          font-size: 32px;
+          box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        & .not-read-key {
+          background-color: #34424c;
+          color: white;
+          padding: 10px 20px 10px 20px;
+          font-size: 23px;
+          width: 100%;
+          box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+      }
+    }
+  }
+}

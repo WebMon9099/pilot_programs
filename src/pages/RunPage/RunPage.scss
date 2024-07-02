@@ -1,0 +1,153 @@
+@import '../../components/run-page-components/.run-page-components.scss';
+
+$settings-border-color: #b8b8b8;
+
+.run-page {
+  display: flex;
+  flex-direction: column;
+
+  & .session-counter {
+    flex: 1;
+
+    & .countdown {
+      height: 100%;
+    }
+  }
+
+  & .settings-container {
+    position: absolute;
+    display: flex;
+    background-color: rgba(0, 0, 0, 0.75);
+    width: 100%;
+    height: 100%;
+    z-index: 1000;
+    transition: 0.2s;
+
+    & .settings {
+      flex: 1;
+      margin: 32px 64px;
+      border: 1px solid $settings-border-color;
+    }
+  }
+
+  & .activity-wrapper {
+    position: relative;
+    flex: 1;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    & .pie-timer {
+      position: absolute;
+      top: 40px;
+      right: 80px;
+      z-index: 10;
+
+      @media only screen and (max-width: $bp-1400) {
+        right: 60px;
+      }
+
+      @media only screen and (max-width: $bp-1200) {
+        right: 40px;
+      }
+
+      @media only screen and (max-width: $bp-1000) {
+        right: 20px;
+      }
+    }
+
+    & .pause-beacon {
+      position: absolute;
+      top: 120px;
+      right: 80px;
+      z-index: 10;
+
+      @media only screen and (max-width: $bp-1400) {
+        right: 60px;
+      }
+
+      @media only screen and (max-width: $bp-1200) {
+        right: 40px;
+      }
+
+      @media only screen and (max-width: $bp-1000) {
+        right: 20px;
+      }
+    }
+
+    & .on-screen-joystick {
+      position: absolute;
+      bottom: 60px;
+
+      @media only screen and (max-width: $bp-1200) {
+        bottom: 40px;
+      }
+
+      @media only screen and (max-width: $bp-1000) {
+        bottom: 20px;
+      }
+
+      &.right {
+        right: 60px;
+
+        @media only screen and (max-width: $bp-1200) {
+          right: 40px;
+        }
+
+        @media only screen and (max-width: $bp-1000) {
+          right: 20px;
+        }
+      }
+
+      &.left {
+        left: 60px;
+
+        @media only screen and (max-width: $bp-1200) {
+          left: 40px;
+        }
+
+        @media only screen and (max-width: $bp-1000) {
+          left: 20px;
+        }
+      }
+    }
+
+    & .on-screen-slider {
+      position: absolute;
+      bottom: 60px;
+
+      @media only screen and (max-width: $bp-1200) {
+        bottom: 40px;
+      }
+
+      @media only screen and (max-width: $bp-1000) {
+        bottom: 20px;
+      }
+
+      &.right {
+        right: 60px;
+
+        @media only screen and (max-width: $bp-1200) {
+          right: 40px;
+        }
+
+        @media only screen and (max-width: $bp-1000) {
+          right: 20px;
+        }
+      }
+
+      &.left {
+        left: 60px;
+
+        @media only screen and (max-width: $bp-1200) {
+          left: 40px;
+        }
+
+        @media only screen and (max-width: $bp-1000) {
+          left: 20px;
+        }
+      }
+    }
+  }
+}

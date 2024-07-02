@@ -1,0 +1,10 @@
+.on-screen-joystick {
+  background-repeat: no-repeat;
+  background-position: center;
+
+  & .interactable {
+    position: relative;
+    transform: translate(-50%, -50%);
+    width: 50%;
+  }
+}

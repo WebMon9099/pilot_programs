@@ -1,0 +1,58 @@
+$answer-board-border-color: gray;
+$title-color: #bababa;
+$rule-background-color: #e0e0e0;
+$rule-text-color: #cccccc;
+
+.answers-board {
+  z-index: 10;
+  background-color: $color-white;
+  border: 1px solid #d8d8d8;
+  border-radius: 6px;
+
+  & > .title {
+    color: #646464;
+    font-size: 22px;
+    font-weight: 600;
+  }
+
+  & .triangle {
+    height: 10vw;
+    width: 10vw;
+    margin: 4rem auto;
+
+    @media only screen and (max-height: 1000px) {
+      margin: 2rem auto;
+    }
+
+    @media only screen and (max-height: 700px) {
+      margin: 1rem auto;
+    }
+  }
+
+  & .subtitle {
+    color: #646464;
+    margin: 20px 0;
+    font-weight: 500;
+    font-size: 20px;
+  }
+
+  & .rule {
+    padding: 12px 17px 14px 17px;
+    margin-bottom: 19px;
+    border-radius: 5px;
+    border: 1px solid #e9e9e9;
+    background-color: #f3f3f3;
+    color: #ccc;
+
+    & .title {
+      display: flex;
+      justify-content: space-between;
+
+      & b {
+        color: $rule-text-color;
+        font-weight: 600;
+        margin-bottom: 10px;
+      }
+    }
+  }
+}

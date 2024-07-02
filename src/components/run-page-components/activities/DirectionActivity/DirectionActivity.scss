@@ -1,0 +1,111 @@
+@import './Instrument/Instrument.scss';
+
+$top-instruments-container-background-color: #e5e5e5;
+$button-background-color: lightgray;
+$button-color: #aaaaaa;
+
+.direction-activity {
+  width: 100%;
+  height: 100%;
+
+  display: flex;
+  flex-direction: column;
+
+  & .top-instruments {
+    height: 50%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    background-color: $top-instruments-container-background-color;
+    padding: 0 20vw;
+
+    & > .direction-instrument {
+      width: 30vh;
+      height: 30vh;
+    }
+  }
+
+  & .bottom-actions {
+    height: 50%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 0 20vw;
+
+    & > * {
+      width: 30vh;
+      height: 30vh;
+    }
+
+    & .number-buttons {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      grid-template-rows: repeat(3, minmax(0, 1fr));
+      gap: 1rem;
+
+      & .item {
+        width: 100%;
+        height: 100%;
+      }
+
+      & button {
+        background-color: #e1e1e1;
+        color: #aaa;
+        border-radius: 6px;
+        font-size: 26px;
+        font-weight: 600;
+
+        transition: background-color 0.2s;
+
+        &:disabled {
+          background-color: $color-disabled;
+        }
+      }
+    }
+
+    & .orientations {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      grid-template-rows: repeat(2, minmax(0, 1fr));
+      gap: 1rem;
+      padding: 3rem;
+
+      & .item {
+        background-color: #e1e1e1;
+        border-radius: 6px;
+        color: #aaa;
+        font-size: 26px;
+        font-weight: 600;
+        transition: background-color 0.2s;
+        padding: 2rem;
+        width: 100%;
+        height: 100%;
+
+        & img {
+          width: 100%;
+          height: 100%;
+        }
+
+        &:disabled {
+          background-color: $color-disabled;
+        }
+      }
+    }
+  }
+
+  & > button {
+    color: white;
+    background-color: #34424c;
+    border-radius: 50px;
+    font-weight: bold;
+    padding: 1rem 4rem;
+    align-self: center;
+    margin: 4rem 0;
+    // transition: 0.2s background-color;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+
+    &:disabled {
+      background-color: $color-disabled;
+    }
+  }
+}

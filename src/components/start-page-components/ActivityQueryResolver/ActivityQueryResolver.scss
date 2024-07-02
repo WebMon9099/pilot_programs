@@ -1,0 +1,30 @@
+.activity-type-selector {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: #6d6d6d;
+
+  & h1 {
+    margin-bottom: 5vh;
+  }
+
+  // & button {
+  //   width: 100%;
+  //   height: 10vh;
+  //   border: 1px solid #b8b8b8;
+  //   background-color: white;
+  //   border-radius: 1vmin;
+  //   transition: 0.2s;
+
+  //   @media (hover: hover) {
+  //     &:hover {
+  //       color: white;
+  //       background-color: $color-blue;
+  //     }
+  //   }
+
+  //   &:not(:last-child) {
+  //     margin-bottom: 5vh;
+  //   }
+  // }
+}

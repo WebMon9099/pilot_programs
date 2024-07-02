@@ -1,0 +1,82 @@
+@import './AnswersBoard/AnswersBoard.scss';
+@import './RulesPage/RulesPage.scss';
+
+$starting-triangle-title-color: #bababa;
+$input-box-border-color: gray;
+
+.triangles-activity {
+  width: 100%;
+  height: 100%;
+  position: relative;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  & .rules-page {
+    height: 95%;
+    // width: 85%;
+  }
+
+  & .starting-triangle-container {
+    & h1 {
+      font-size: 33px;
+      font-weight: 600;
+      color: #bdbdbd;
+      margin-bottom: 5rem;
+    }
+
+    & img {
+      height: 20vh;
+      width: 20vh;
+      margin: 3rem auto 0 auto;
+    }
+  }
+
+  & .second-triangle-container {
+    width: 80vh;
+    height: 80vh;
+    display: grid;
+    grid-template-rows: repeat(3, minmax(0, 1fr));
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 7rem;
+    align-items: center;
+    justify-items: center;
+
+    & .input-box {
+      width: 14vh;
+      height: 14vh;
+
+      background-color: $color-white;
+      border: 1px solid #ddd;
+      border-radius: 1vmin;
+      transition: 0.2s background-color;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+
+      &:disabled {
+        background-color: $color-disabled;
+      }
+    }
+
+    & .placeholder {
+      width: 75%;
+    }
+
+    & .triangle {
+      width: 100%;
+      height: 100%;
+    }
+  }
+
+  & .answers-board {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    bottom: 20px;
+    max-height: 689px;
+    overflow-y: auto;
+    padding: 20px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    max-width: 380px;
+  }
+}

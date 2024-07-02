@@ -1,0 +1,14 @@
+$complete-box-background-color: #e1e1e1;
+
+.complete-box {
+  display: inline-block;
+  vertical-align: middle;
+  width: 100px;
+  height: 100px;
+  margin-bottom: 15px;
+  line-height: 100px;
+  background-color: $complete-box-background-color;
+  border-radius: 6px;
+  text-align: center;
+  transition: 0.4s;
+}

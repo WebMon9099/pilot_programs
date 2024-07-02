@@ -1,0 +1,123 @@
+@import './TabButtons/TabButtons.scss';
+@import './tabs/tabs.scss';
+
+.settings {
+  // position: absolute;
+  // top: 50%;
+  // left: 50%;
+  // transform: translate(-50%, -50%);
+  // width: 90%;
+  // height: 90%;
+  display: flex;
+  flex-direction: column;
+  background-color: $color-white;
+  border-radius: 1vmin;
+  border: 1px solid #ddd;
+  overflow: hidden;
+  box-shadow: 1px 1px 20px 0px rgba(0, 0, 0, 0.1);
+
+  @media only screen and (max-width: $bp-1200) {
+    font-size: 14px;
+  }
+
+  & .header {
+    display: flex;
+    justify-content: space-between;
+    color: #606060;
+
+    & h2 {
+      font-size: 25px;
+      font-weight: 600;
+    }
+  }
+
+  & .tab {
+    flex: 1;
+    padding: 4vh 0;
+
+    & .row {
+      border: 1px solid #e5e5e5;
+      border-radius: 1vmin;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+
+      & > * {
+        padding: 1vw 2vw;
+      }
+
+      & .top {
+        border-bottom: 1px solid #e5e5e5;
+        box-shadow: inset 0 -5px 6px rgba(0, 0, 0, 0.025);
+
+        & b {
+          color: #898989;
+          font-size: 15px;
+          font-weight: 600;
+        }
+      }
+
+      & .bottom {
+        display: flex;
+        background-color: #f7f7f7;
+
+        & .left {
+          width: 70%;
+          margin-right: 4rem;
+
+          & .description {
+            color: #8e8e8e;
+            line-height: 2em;
+            font-size: 13px;
+          }
+        }
+
+        & .right {
+          display: flex;
+          align-items: flex-start;
+          justify-content: flex-end;
+          width: 30%;
+        }
+      }
+    }
+  }
+
+  & .buttons {
+    display: flex;
+    justify-content: flex-end;
+    font-size: 1.4rem;
+
+    & button {
+      color: $color-white;
+      padding: 1rem 2rem;
+      border-radius: 500px;
+      font-weight: 600;
+      transition: 0.2s;
+    }
+
+    & .cancel-button {
+      color: #bfbfbf;
+
+      &:hover {
+        color: #939393;
+      }
+    }
+
+    & .reset-button {
+      background-color: #2590c5;
+      margin: 0 3vw;
+
+      &:hover {
+        background-color: #0d8abb;
+      }
+    }
+
+    & .apply-button {
+      background-color: #7edb4d;
+
+      &:hover {
+        background-color: #74d51f;
+      }
+    }
+  }
+}

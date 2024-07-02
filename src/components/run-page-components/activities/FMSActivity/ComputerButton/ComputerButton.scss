@@ -1,0 +1,25 @@
+.computer-button-container {
+  width: 8vh;
+  height: 8vh;
+  background-color: #262626;
+  box-shadow: inset -1px 1px 6px 4px rgba(32, 32, 32, 0.8);
+  border-top-left-radius: 35%;
+  border-bottom-left-radius: 35%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  & .inner {
+    width: 40%;
+    height: 40%;
+    background-color: #a8a79a;
+    box-shadow: -1px 1px 6px 4px rgba(14, 14, 14, 0.25);
+    border-top-left-radius: 35%;
+    border-bottom-left-radius: 35%;
+    transition: filter 0.2s;
+
+    &:hover {
+      filter: brightness(110%);
+    }
+  }
+}

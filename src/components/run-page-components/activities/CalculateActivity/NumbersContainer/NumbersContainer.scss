@@ -1,0 +1,25 @@
+.numbers-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: 0.4s;
+
+  & button {
+    width: 100px;
+    height: 100px;
+    background-color: white;
+    color: #494949;
+    font-size: 46px;
+    font-weight: 500;
+    border-radius: 6px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+
+    &:not(:first-child) {
+      margin-left: 1rem;
+    }
+
+    &:not(:last-child) {
+      margin-right: 1rem;
+    }
+  }
+}

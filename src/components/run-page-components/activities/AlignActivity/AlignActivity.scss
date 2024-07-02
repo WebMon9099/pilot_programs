@@ -1,0 +1,66 @@
+@import './Math/Math.scss';
+@import './Shapes/Shapes.scss';
+@import './left-game-components/left-game-components';
+
+.align-activity {
+  position: relative;
+  width: 100vh;
+  height: 50vh;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  row-gap: 2vh;
+  column-gap: 2vh;
+
+  & > *:not(.toggle-button) {
+    position: relative;
+    border-radius: 1vmin;
+    background-color: #e5e5e5;
+
+    & .no-entry-icon {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 10vh;
+      height: 10vh;
+      opacity: 0.3;
+    }
+  }
+
+  & .left {
+    grid-area: 1 / 1 / 3 / 2;
+  }
+
+  & .top-right {
+    grid-area: 1 / 2 / 2 / 3;
+  }
+
+  & .bottom-right {
+    grid-area: 2 / 2 / 3 / 3;
+  }
+
+  & .toggle-button {
+    position: absolute;
+    z-index: 100;
+    width: 65px;
+    height: 28px;
+  }
+
+  & .show-left-toggle-button {
+    transform: translate(0, -100%);
+    top: -1vw;
+  }
+
+  & .show-top-right-toggle-button {
+    transform: translate(0, -100%);
+    top: -1vw;
+    right: 0;
+  }
+
+  & .show-botom-right-toggle-button {
+    transform: translate(0);
+    top: calc(100% + 1vw);
+    right: 0;
+  }
+}

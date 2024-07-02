@@ -1,0 +1,20 @@
+.score-indicator {
+  color: $color-green;
+  font-size: 24px;
+  transform-origin: center;
+  transition: 0.6s ease-out;
+
+  &.hidden {
+    max-width: 0;
+    opacity: 0;
+    transform: translateY(80%);
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  &.display {
+    max-width: 27px;
+    opacity: 1;
+    transform: translateY(0%);
+  }
+}

@@ -1,0 +1,112 @@
+@import './JoystickTester/JoystickTester.scss';
+
+.external-joystick-tab {
+  display: flex;
+  flex-direction: column;
+
+  > p {
+    color: #8e8e8e;
+    margin-bottom: auto;
+  }
+
+  & .joystick-selection-tabbar {
+    // background-color: #efefef;
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+    padding: 0.75rem;
+    padding-bottom: 0;
+    font-size: 14px;
+
+    > button {
+      color: #6b6b6b;
+      margin-bottom: -2px;
+      border: 1px solid #dddddd;
+      background-color: #f4f4f4;
+      padding: 8px 32px;
+      border-top-left-radius: 3px;
+      border-top-right-radius: 3px;
+
+      &.selected {
+        position: relative;
+        background-color: white;
+        z-index: 0;
+        border-bottom: 1px solid white;
+      }
+
+      &:not(:first-child) {
+        margin-left: 4px;
+      }
+    }
+  }
+
+  & .row {
+    background-color: white;
+    flex: 1;
+    border: 1px solid #e2e2e2;
+    border-radius: 0 !important;
+    flex-direction: row !important;
+
+    & .left {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      width: 70%;
+
+      & p {
+        color: #8e8e8e;
+        font-size: 13px;
+      }
+
+      & .device-choose-container {
+        display: flex;
+        align-items: center;
+      }
+
+      & .axis-container {
+        display: flex;
+
+        & .labeled-box-container {
+          flex: 1;
+          transition: 0.2s;
+
+          &:not(:last-child) {
+            margin-right: 2rem;
+          }
+
+          & .sensitivity-container {
+            display: flex;
+            align-items: center;
+            margin-bottom: 3rem;
+
+            & > span {
+              font-size: 12px;
+              font-weight: 600;
+              color: #727272;
+              margin-right: 2rem;
+            }
+          }
+
+          & .invert-container {
+            display: flex;
+            align-items: center;
+
+            & > span {
+              font-size: 12px;
+              font-weight: 600;
+              color: #727272;
+              margin-right: 2rem;
+            }
+          }
+        }
+      }
+
+      & .bottom-text {
+        font-size: 1rem;
+      }
+    }
+
+    & .right {
+      width: 30%;
+    }
+  }
+}

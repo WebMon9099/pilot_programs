@@ -1,0 +1,49 @@
+.toggle-button {
+  cursor: pointer;
+  position: relative;
+  // width: 80px;
+  // height: 35px;
+  border-radius: 2em;
+  transition: 0.2s background-color;
+
+  &.disabled {
+    pointer-events: none;
+  }
+
+  & .toggle {
+    display: inline-block;
+    position: absolute;
+    transform: translate(-50%, -50%);
+    top: 50%;
+    width: 28px;
+    height: 80%;
+    border-radius: 500px;
+    transition: 0.2s left;
+
+    &.off {
+      left: 27%;
+    }
+
+    &.on {
+      left: 74%;
+    }
+  }
+
+  & label {
+    cursor: pointer;
+    position: absolute;
+    transform: translate(-50%, -50%);
+    top: 50%;
+    left: 0;
+    transition: 0.2s left;
+    font-size: 12px;
+
+    &.off {
+      left: 70%;
+    }
+
+    &.on {
+      left: 30%;
+    }
+  }
+}

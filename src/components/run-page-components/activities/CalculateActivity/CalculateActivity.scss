@@ -1,0 +1,59 @@
+@import './CompleteBox/CompleteBox.scss';
+@import './NumbersContainer/NumbersContainer.scss';
+
+$equation-container-background-color: #ebebeb;
+
+.calculate-activity {
+  width: 100%;
+  height: 100%;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  & .equation-container {
+    width: 100%;
+    height: 40%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: $equation-container-background-color;
+
+    & .equation {
+      & h2 {
+        font-size: 50px;
+        font-weight: 600;
+        color: #444;
+
+        & span {
+          margin: 0 10px 0 10px;
+          vertical-align: middle;
+
+          &.operation {
+            font-size: 50px;
+          }
+        }
+      }
+    }
+  }
+
+  & .numbers-container {
+    height: 60%;
+    width: 90%;
+  }
+
+  & > button {
+    background-color: #34424c;
+    color: white;
+    padding: 1.5rem 3.5rem;
+    border-radius: 50px;
+    font-weight: 700;
+    font-size: 20px;
+    margin: 4rem 0;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.2);
+
+    &:disabled {
+      background-color: $color-disabled;
+    }
+  }
+}

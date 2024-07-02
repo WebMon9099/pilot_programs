@@ -1,0 +1,67 @@
+.graph {
+  background-color: white;
+  border: 1px solid #eaeaea;
+  width: 25vw;
+  height: 15vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  & .graph-container {
+    position: relative;
+    border-left: 1px solid #dadada;
+    width: 85%;
+    height: 85%;
+
+    & .y-axis {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      color: #dadada;
+      margin-top: -1rem;
+      margin-left: -2rem;
+      height: calc(100% + 2rem);
+      display: flex;
+      flex-direction: column-reverse;
+      justify-content: space-between;
+
+      & .cursor {
+        display: flex;
+        align-items: center;
+
+        & span {
+          margin-right: 4px;
+        }
+
+        & .line {
+          border-bottom: 1px solid #dadada;
+          flex: 1;
+        }
+      }
+    }
+
+    & .columns {
+      position: relative;
+      width: 90%;
+      height: 100%;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+
+      & .column {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        width: 0.5vw;
+        background-color: #e5e5e5;
+
+        & .fill {
+          width: 100%;
+          background-color: #606060;
+        }
+      }
+    }
+  }
+}

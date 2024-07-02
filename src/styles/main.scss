@@ -1,0 +1,66 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
+@import './preflight.css';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import 'fonts.scss';
+@import 'variables.scss';
+@import 'layout.scss';
+@import '../components/Core/core.scss';
+@import '../components/global/global';
+@import '../pages/pages.scss';
+
+// *,
+// *::before,
+// *::after {
+//   margin: 0;
+//   padding: 0;
+//   box-sizing: inherit;
+//   user-select: none;
+//   font-family: inherit;
+//   -webkit-tap-highlight-color: transparent;
+// }
+
+// html,
+// body {
+//   height: 100%;
+//   width: 100%;
+//   touch-action: pan-x pan-y;
+//   position: fixed;
+//   overflow: hidden;
+//   overscroll-behavior: none;
+// }
+
+// html {
+//   box-sizing: border-box;
+//   font-size: 62.5%; // 1rem = 10px
+// }
+
+// button {
+//   cursor: pointer;
+//   border: none;
+//   background: none;
+//   color: inherit;
+//   font-size: inherit;
+//   font-weight: inherit;
+
+//   &:disabled {
+//     cursor: inherit;
+//   }
+
+//   &:focus {
+//     outline: none;
+//   }
+// }
+
+// a {
+//   text-decoration: none;
+//   color: inherit;
+// }
+
+// img {
+//   display: block;
+//   pointer-events: none;
+// }

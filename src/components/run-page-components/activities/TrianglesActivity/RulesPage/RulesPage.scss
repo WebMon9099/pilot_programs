@@ -1,0 +1,53 @@
+$rule-left-color: #727272;
+$rule-right-color: #adadad;
+
+.rules-page {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  flex-wrap: wrap;
+  // background-color: white;
+  // border: 1px solid #dfdfdf;
+  // border-radius: 6px;
+
+  & .rule {
+    font-size: 22px;
+    font-weight: 500;
+    color: #494949 !important;
+    display: flex;
+    width: 1000px;
+    padding: 2rem 4rem;
+
+    & .left {
+      color: #494949;
+      flex: 0.5 1;
+
+      & > b {
+        font-weight: 700;
+      }
+    }
+
+    & .right {
+      color: #adadad;
+      font-weight: 400;
+      flex: 1 1;
+    }
+  }
+
+  & button {
+    background-color: #34424c;
+    color: #fff;
+    padding: 1.25rem 3.25rem;
+    border-radius: 50px;
+    font-size: 21px;
+    font-weight: 600;
+    box-shadow: 0 4px 6px 1px rgba(0, 0, 0, 0.1);
+    // width: 150px;
+    margin: 0 auto;
+    margin-top: 6rem;
+
+    &:disabled {
+      background-color: $color-disabled;
+    }
+  }
+}

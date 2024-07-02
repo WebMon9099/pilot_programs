@@ -1,0 +1,45 @@
+.cards-board {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+
+  & .cards {
+    width: 100%;
+
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    grid-template-rows: repeat(2, minmax(0, 1fr));
+    padding: 2rem;
+    gap: 1rem;
+
+    & .card {
+      transition: border 0.2s, background-color 0.2s;
+
+      & > img {
+        transition: 0.2s opacity;
+      }
+
+      &:disabled {
+        background-color: $color-disabled;
+
+        & img {
+          opacity: 0.2;
+        }
+      }
+    }
+  }
+
+  & > button {
+    background-color: #34424c;
+    color: white;
+    padding: 1rem 4rem;
+    border-radius: 50px;
+    font-weight: bold;
+    // transition: 0.2s background-color;
+
+    &:disabled {
+      background-color: $color-disabled;
+    }
+  }
+}

@@ -1,0 +1,59 @@
+@import './LetterCard/LetterCard.scss';
+
+$upper-container-color: #848484;
+
+.characters-activity {
+  width: 100%;
+  height: 100%;
+
+  & .display-container {
+    height: 70%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: $upper-container-color;
+
+    & .title {
+      font-size: 50px;
+      margin-bottom: 40px;
+    }
+
+    & .letter-card {
+      width: 35vh;
+      height: 35vh;
+    }
+  }
+
+  & .buttons-container {
+    background-color: $color-white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 30%;
+
+    & .buttons {
+      display: flex;
+      width: 650px;
+      justify-content: space-around;
+
+      & > button {
+        font-size: 28px;
+        font-weight: bold;
+        background-color: #34424c;
+        color: $color-white;
+        border-radius: 50px;
+        width: 120px;
+        padding: 2.25rem 3.5rem;
+        font-size: 27px;
+        font-weight: 600;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.2);
+
+        &:disabled {
+          background-color: $color-disabled;
+        }
+      }
+    }
+  }
+}
