@@ -254,6 +254,9 @@ const CalculateActivity: ActivityComponent = ({
     userAnswer.forEach((v, i) => {
       if (v !== state[i]) correct = false;
     });
+    if (userAnswer.length === 0){
+      correct = false;
+    }
 
     activityActions.activitySetSubmit(true, correct ? 1 : 0);
   }
