@@ -239,9 +239,11 @@ const TrackingActivity: ActivityComponent<{
 
         window.speechSynthesis.speak(msg);
 
-        statesCount += 1;
+        if (currentCalculationsState.suggestedAnswer === getRightAnswer(op1, act, op2)){
+          statesCount += 1;
 
-        activityActions.activityIncreaseMaxScore(1);
+          activityActions.activityIncreaseMaxScore(1);
+        }
 
         function getVerbalAction(act: "add" | "sub" | "mul" | "div") {
           switch (act) {
@@ -697,14 +699,22 @@ const TrackingActivity: ActivityComponent<{
     if (secondaryWhiteDotAccurate) secondaryWhiteDotAccurateTime = Date.now();
 
     return animate(() => {
-      if (orangeDotAccurate)
+      if (orangeDotAccurate){
         accurateTime.current += Date.now() - mainOrangeDotAccurateTime;
+        mainOrangeDotAccurateTime = Date.now();
+      }
+        
 
-      if (mainWhiteDotAccurate)
+      if (mainWhiteDotAccurate){
         accurateTime.current += Date.now() - mainWhiteDotAccurateTime;
+        mainWhiteDotAccurateTime = Date.now();
+      }
+        
 
-      if (secondaryWhiteDotAccurate)
+      if (secondaryWhiteDotAccurate){
         accurateTime.current += Date.now() - secondaryWhiteDotAccurateTime;
+        secondaryWhiteDotAccurateTime = Date.now();
+      }
     });
   }, [orangeDotAccurate, mainWhiteDotAccurate, secondaryWhiteDotAccurate]);
 
@@ -813,34 +823,29 @@ const TrackingActivity: ActivityComponent<{
    */
   useEffect(() => {
     const startTime = Date.now();
-
+    
     const animateCancel = animate(() => {
       if (pausedRef.current) return;
-
       const accuracy = Math.min(
-        Math.round(getAccuracy(Date.now() - startTime) / 100),
+        Math.round(getAccuracy(Date.now() - startTime)),
         100
       );
-
       activityActions.activitySetArbitraryState({
         accuracy: `<span>${accuracy}<span style="font-size: 12px">%</span></span>`,
       });
     });
-
     return () => {
       animateCancel();
-
-      const accuracy = getAccuracy(activityObject.sessionLength * 100);
+      const accuracy = getAccuracy(activityObject.sessionLength);
 
       // const rightAnswerMultiplier =
       //   activityType !== "Tracking Only" ? userRightDecimal.current : 1;
-
-      activityActions.activityIncreaseMaxScore(1);
-      activityActions.activityIncreaseScore(accuracy / 100);
-
+      activityActions.activityIncreaseMaxScore(100);
+      activityActions.activityIncreaseScore(Math.round(accuracy));
       activityActions.activitySetArbitraryState({
         accuracy,
       });
+      activityActions.activityFinish();
     };
 
     function getAccuracy(ofTime: number) {

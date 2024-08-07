@@ -42,6 +42,7 @@ const SpinActivity: ActivityComponent = ({
   const availableBarriers = useRef<{ [key in BarrierType]?: THREE.Mesh }>({});
 
   const [showRedOverlay, setShowRedOverlay] = useState(false);
+  const [reverseFlag, setReverseFlag] = useState(false);
 
   useTimeActivity(activityObject, activityState, activityActions);
 
@@ -57,6 +58,11 @@ const SpinActivity: ActivityComponent = ({
     return (barrier: THREE.Mesh) => {
       barrier.rotateX(1.5707963268);
       barrier.position.setZ(currentZ);
+      // Change the barrier color
+      barrier.material = new THREE.MeshBasicMaterial({
+        color: 0x5A646A,
+      });
+      
       barrier.userData = {
         direction: _.sample([1, -1]),
       };
@@ -103,7 +109,7 @@ const SpinActivity: ActivityComponent = ({
 
     const ambientLight = new THREE.AmbientLight(0xffffff);
 
-    scene.background = new THREE.Color(0x7a7a7a);
+    scene.background = new THREE.Color(0x96D4EA);
 
     scene.add(ambientLight);
 
@@ -300,21 +306,28 @@ const SpinActivity: ActivityComponent = ({
           new THREE.Vector2(camera.position.x, camera.position.y),
           camera
         );
-
-        camera.translateZ(-speed.current);
+        if (reverseFlag === false){
+          camera.translateZ(-speed.current);
+        } else {
+          camera.translateZ(speed.current);
+          if (showRedOverlay === false){
+            setReverseFlag(false);
+          }
+        }
 
         const currentBarrier = barriers.current[0];
-        if (raycaster.intersectObject(currentBarrier).length !== 0) {
+        if (raycaster.intersectObject(currentBarrier).length !== 0 && showRedOverlay === false) {
+          setReverseFlag(true);
           activityActions.activityIncreaseMaxScore(1);
 
           setShowRedOverlay(true);
 
           setTimeout(() => {
             setShowRedOverlay(false);
-          }, 1000 / (speed.current * 4));
-
-          removeBarrier(currentBarrier);
-        } else if (camera.position.z <= currentBarrier.position.z) {
+          }, 1000 / (speed.current * 3));
+          
+          // removeBarrier(currentBarrier);
+        } else if (camera.position.z <= currentBarrier.position.z && reverseFlag === false) {
           activityActions.activityIncreaseMaxScore(1);
 
           if (currentBarrier.name !== 'barrier-hollow')
@@ -322,16 +335,18 @@ const SpinActivity: ActivityComponent = ({
           removeBarrier(currentBarrier);
         }
 
+        const material = (currentBarrier.material as THREE.MeshBasicMaterial).clone();        
+        material.color.set(0x4B565E);
+
         if (
           activityState.trainingMode &&
           currentBarrier.name !== 'barrier-hollow'
         ) {
-          const material = (currentBarrier.material as THREE.Material).clone();
+          // const material = (currentBarrier.material as THREE.Material).clone();
           material.transparent = true;
           material.opacity = 0.6;
-          currentBarrier.material = material;
         }
-
+        currentBarrier.material = material;
         barriers.current.forEach((barrier) => {
           if (barrier.parent !== scene) addBarrier(barrier);
 
@@ -349,6 +364,8 @@ const SpinActivity: ActivityComponent = ({
     activityState.speed,
     addBarrier,
     removeBarrier,
+    reverseFlag,
+    showRedOverlay
   ]);
 
   return (
@@ -361,7 +378,7 @@ const SpinActivity: ActivityComponent = ({
         <div
           className="red-overlay"
           style={{
-            animationDuration: `${1000 / (speed.current * 4) / 1000}s`,
+            animationDuration: `${1000 / (speed.current * 3) / 1000}s`,
           }}
         />
       )}

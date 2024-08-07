@@ -127,7 +127,9 @@ const _RunPage: React.FC<RunPageProps> = ({
   );
 
   const exitCallback = useCallback(() => {
-    activityActions.activityFinish();
+    if (activityObject.name !== 'Tracking'){
+      activityActions.activityFinish();
+    }
 
     navigate(`/${activityObject.path}/complete${location.search}`, {
       state: {

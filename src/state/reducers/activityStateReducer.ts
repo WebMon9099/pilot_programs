@@ -108,11 +108,15 @@ function activityStateReducer(
         trainingMode: action.payload.to,
       };
     case ActivityStateActionType.ActivityIncreaseScore:
+      console.log('correct answer numbers before calc', state.score);
+      console.log('adding correct answer number--------------', action.payload.by);
       return {
         ...state,
         score: state.score + action.payload.by,
       };
     case ActivityStateActionType.ActivityIncreaseMaxScore:
+      console.log('total questions number before calc', state.maxScore);
+      console.log('adding total questions number**************', action.payload.by);
       return {
         ...state,
         maxScore: state.maxScore + action.payload.by,
