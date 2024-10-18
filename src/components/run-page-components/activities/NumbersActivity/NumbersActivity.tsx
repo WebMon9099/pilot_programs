@@ -18,8 +18,13 @@ const NumbersActivity: ActivityComponent = ({
   activityActions,
   activityObject,
   activityState,
+  activityParams,
   ...rest
 }) => {
+  let type = "Normal";
+  if (activityParams && activityParams.type){
+    type = activityParams?.type;
+  }
   const generatedNumberSequenceLength = useRef(
     _.random(
       1,
@@ -98,10 +103,21 @@ const NumbersActivity: ActivityComponent = ({
       ),
       initialUserAnswer: "",
       getScore: useCallback(
-        (generatedNumberSequence: string, userAnswer: string) =>
-          generatedNumberSequence === userAnswer.split("").reverse().join("")
-            ? 1
-            : 0,
+        (generatedNumberSequence: string, userAnswer: string) =>{
+          if (type === "Normal"){
+            if (generatedNumberSequence === userAnswer.split("").join("")){
+              return 1;
+            } else {
+              return 0;
+            }
+          } else {
+            if (generatedNumberSequence === userAnswer.split("").reverse().join("")){
+              return 1;
+            } else {
+              return 0;
+            }
+          }
+        },
         []
       ),
     },
@@ -144,7 +160,7 @@ const NumbersActivity: ActivityComponent = ({
           style={{
             color:
               currentChar ===
-              generatedNumberSequence.split("").reverse().join("").charAt(i)
+              (type === "Normal"?generatedNumberSequence.split("").join("").charAt(i):generatedNumberSequence.split("").reverse().join("").charAt(i))
                 ? "#92e744"
                 : "#f1504c",
           }}
@@ -180,7 +196,7 @@ const NumbersActivity: ActivityComponent = ({
                 </p>
                 <p className="correct-answer">
                   {activityState.submitted && activityState.trainingMode
-                    ? generatedNumberSequence.split("").reverse().join("")
+                    ? (type === "Normal"?generatedNumberSequence.split("").join("") : generatedNumberSequence.split("").reverse().join(""))
                     : undefined}
                 </p>
               </h1>

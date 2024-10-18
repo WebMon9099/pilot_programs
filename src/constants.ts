@@ -198,6 +198,7 @@ export const ACTIVITIES: { [key: string]: ActivityObject } = {
     showAnswerTime: 5,
     ignoreSessions: true,
     hasSpeed: false,
+    queries: { type: { name: 'Type', options: ['Normal', 'Reverse'] } },
     gear: {
       mouse: true,
       headphones: true,
