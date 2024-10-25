@@ -1,4 +1,5 @@
 export { default as AlignActivity } from './AlignActivity';
+export { default as SonicActivity } from './SonicActivity';
 export { default as CalculateActivity } from './CalculateActivity';
 export { default as CharactersActivity } from './CharactersActivity';
 export { default as ControlActivity } from './ControlActivity';

@@ -1,5 +1,6 @@
 import {
   AlignActivity,
+  SonicActivity,
   CalculateActivity,
   CharactersActivity,
   ControlActivity,
@@ -287,6 +288,21 @@ export const ACTIVITIES: { [key: string]: ActivityObject } = {
     queries: {
       type: { name: 'Type', options: ['Horizontal', 'Vertical'] },
     },
+    gear: {
+      mouse: true,
+      headphones: true,
+    },
+    settings: false,
+  },
+  sonic: {
+    path: 'sonic',
+    name: 'sonic',
+    component: SonicActivity,
+    sessions: 1,
+    sessionLength: 300,
+    showAnswerTime: 0,
+    hasSpeed: true,
+    ignoreSessions: true,
     gear: {
       mouse: true,
       headphones: true,

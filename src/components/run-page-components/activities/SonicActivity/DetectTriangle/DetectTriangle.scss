@@ -1,0 +1,78 @@
+.detect-triangle {
+  width: 100%;
+  height: 100%;
+  // display: flex;
+  // flex-direction: column;
+  // justify-content: center;
+  // align-items: center;
+
+  color: #848484;
+
+  .shape-container{
+    width: 100%;
+    margin-top:20px;
+    display: flex;
+    justify-content: space-evenly;
+
+    .shape{
+      width:70px;
+    }
+  }
+
+  .timer-progress-container{
+    height: 60%;
+    padding:20px;
+    display: flex;
+    justify-content: center;
+    .rod{
+      width:30px;
+      height: 90%;
+      border:1px solid #cecece;
+      border-radius: 8px;
+      margin-top: 5%;
+      position: relative;
+      background-color: #cecece;
+
+      .progress-bar{
+        height: 10%;
+        width: 100%;
+        background-color: #3b4951;
+        position: absolute;
+        bottom: 0;
+        border-bottom-left-radius: 8px;
+        border-bottom-right-radius: 8px;
+      }
+    }
+  }
+  
+
+  & .buttons-container {
+    margin-top: 3vh;
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+
+    .button-img{
+      width:20px;
+      margin: auto;
+    }
+
+    & button {
+      background-color: white;
+      color: #494949;
+      border-radius: 1vmin;
+      width: 30%;
+      padding: 1vh 0;
+      font-weight: 500;
+      box-shadow: 0 4px 6px -4px rgba(0, 0, 0, 0.1);
+      // border: 1px solid #b8b8b8;
+      font-size: 2vh;
+      transition: 0.2s;
+      text-align: center;
+
+      &:disabled {
+        background-color: $color-disabled;
+      }
+    }
+  }
+}
