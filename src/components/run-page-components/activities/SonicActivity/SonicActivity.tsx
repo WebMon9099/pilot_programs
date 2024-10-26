@@ -29,6 +29,7 @@ const SonicActivity: ActivityComponent = ({
   }>({ numbers: [], op: '+' });
   const [shapes, setShapes] = useState<ShapeType[]>([]);
   const [letters, setLetters] = useState<String[]>([]);
+  const [playingSounds, setPlayingSounds] = useState<String[]>([]);
   const [isPlayingAudio, setIsPlayingAudio] = useState(true);
 
   const [showLeft, setShowLeft] = useState(true);
@@ -85,6 +86,12 @@ const SonicActivity: ActivityComponent = ({
         let shape_num = SHAPE_SERIES_LENGTH;
         while(shape_num > 0){
           let new_item = _.sample(POSSIBLE_SHAPES)!;
+          if (shape_num === 1){
+            if (new_item !== 'left-triangle' && new_item !== 'right-triangle' && !newShapes.includes('right-triangle') && !newShapes.includes('left-triangle')){
+              continue;
+            }  
+          }
+          
           if (new_item === 'left-triangle'){
             if (newShapes.includes('right-triangle')){
               continue;
@@ -100,13 +107,17 @@ const SonicActivity: ActivityComponent = ({
         }
 
         const newLetters: String[] = [];
+        const newPlayingSounds: String[] = [];
         for (var i = 0; i < LETTERS_SERIES_LENGTH; i++){
-          newLetters.push(_.sample(ALPHABETA_LETTERS)!);
+          let item = _.sample(ALPHABETA_LETTERS)!;
+          newLetters.push(item);
+          newPlayingSounds.push(item + ".wav");
         }
 
         setNumbersState({ numbers: newNumbers, op: mathOp });
         setShapes(newShapes);
         setLetters(newLetters);
+        setPlayingSounds(newPlayingSounds);
       }, []),
       choicesCreator: useCallback(() => {}, []),
       initialUserAnswer: { mathSame: null, soundCheckGood: null, detectTriangleGood: null },
@@ -160,41 +171,59 @@ const SonicActivity: ActivityComponent = ({
   }, [setVolume, showBottomRight]);
 
   useEffect(() => {
-    const sounds: string[] = [];
-
-    for (let i = 0; i < letters.length; ++i) {
-      sounds.push(`${letters[i]}.m4a`);
+    if (playingSounds.length === 0) return;
+    setIsPlayingAudio(true);
+    if (isPlayingAudio){
+      (function playSounds(index: number) {
+        if (playingSounds.length === 0) return;
+        const currentSound = playingSounds[index];
+        
+        playSound(
+          `${process.env.PUBLIC_URL}/sounds/alphabeta/${currentSound}`,
+          function afterStart() {
+            setTimeout(() => {
+              if (index < playingSounds.length - 1) {
+                if(isPlayingAudio){
+                  playSounds(index + 1);
+                  setIsPlayingAudio(true);
+                }
+              } else {
+                setIsPlayingAudio(false);
+                setPlayingSounds([]);
+              }
+            }, 1000 * sound.duration + SOUND_BASE_DELAY_AMOUNT);
+          },
+          function errorWhilePlaying(reason) {
+            console.log(
+              'Audio play has not been started for the following reason: ',
+              reason.toString()
+            );
+          }
+        );
+      })(0);
     }
+    
+  }, [sound, playSound, state, letters, isPlayingAudio]);
 
-    if (sounds.length === 0) return;
-
-    (function playSounds(index: number) {
-      const currentSound = sounds[index];
-      
-      playSound(
-        `${process.env.PUBLIC_URL}/sounds/alphabeta/${currentSound}`,
-        function afterStart() {
-          setTimeout(() => {
-            if (index < sounds.length - 1) {
-              playSounds(index + 1);
-            } else {
-              setIsPlayingAudio(false);
-            }
-          }, 1000 * sound.duration + SOUND_BASE_DELAY_AMOUNT);
-        },
-        function errorWhilePlaying(reason) {
-          console.log(
-            'Audio play has not been started for the following reason: ',
-            reason.toString()
-          );
-        }
-      );
-    })(0);
-
-    return () => {
-      setIsPlayingAudio(true);
+  const createNewAudios = () => {
+    setLetters([]);
+    setPlayingSounds([]);
+    setIsPlayingAudio(false);
+    if (sound){
+      sound.pause();
     }
-  }, [sound, playSound, state, letters]);
+    setTimeout(() => {
+      const newLetters: String[] = [];
+      const newPlayingSounds: String[] = [];
+      for (var i = 0; i < LETTERS_SERIES_LENGTH; i++){
+        let item = _.sample(ALPHABETA_LETTERS)!;
+        newLetters.push(item);
+        newPlayingSounds.push(item + '.wav');
+      }
+      setLetters(newLetters);
+      setPlayingSounds(newPlayingSounds);
+    }, 100);
+  }
 
   return (
     <div
@@ -239,6 +268,7 @@ const SonicActivity: ActivityComponent = ({
             letters={letters}
             setSoundCheck={setSoundCheck}
             isPlayingAudio={isPlayingAudio}
+            createNewAudios = {createNewAudios}
           />
         ) : (
           <img

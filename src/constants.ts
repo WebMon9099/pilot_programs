@@ -296,7 +296,7 @@ export const ACTIVITIES: { [key: string]: ActivityObject } = {
   },
   sonic: {
     path: 'sonic',
-    name: 'sonic',
+    name: 'Sonic',
     component: SonicActivity,
     sessions: 1,
     sessionLength: 300,

@@ -113,13 +113,6 @@ const DetectTriangle: React.FC<MathProps> = ({
         <PushButton
           className="font-inter transition hover:scale-105 active:scale-95 active:brightness-95"
           disabled={disabled}
-          onClick={() => detectshape('skip')}
-        >
-          Skip
-        </PushButton>
-        <PushButton
-          className="font-inter transition hover:scale-105 active:scale-95 active:brightness-95"
-          disabled={disabled}
           onClick={() => detectshape('right')}
         >
           <img className="button-img" alt={"right"} src={require('./images/right-triangle-button-icon.svg').default}/>

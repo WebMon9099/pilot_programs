@@ -20,7 +20,7 @@
   }
 
   .timer-progress-container{
-    height: 60%;
+    height: 55%;
     padding:20px;
     display: flex;
     justify-content: center;
@@ -34,7 +34,6 @@
       background-color: #cecece;
 
       .progress-bar{
-        height: 10%;
         width: 100%;
         background-color: #3b4951;
         position: absolute;
@@ -61,7 +60,7 @@
       background-color: white;
       color: #494949;
       border-radius: 1vmin;
-      width: 30%;
+      width: 35%;
       padding: 1vh 0;
       font-weight: 500;
       box-shadow: 0 4px 6px -4px rgba(0, 0, 0, 0.1);

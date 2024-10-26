@@ -6,6 +6,7 @@ interface ShapesProps extends React.HTMLAttributes<HTMLDivElement> {
   isPlayingAudio: boolean;
   letters: String[];
   setSoundCheck: (shapesSame: boolean) => void;
+  createNewAudios:() => void;
 }
 
 const Sound: React.FC<ShapesProps> = ({
@@ -13,6 +14,7 @@ const Sound: React.FC<ShapesProps> = ({
   isPlayingAudio,
   letters,
   setSoundCheck,
+  createNewAudios,
   ...rest
 }) => {
 
@@ -67,13 +69,13 @@ const Sound: React.FC<ShapesProps> = ({
         >
           Not Duplicated
         </PushButton>
-        {/* <PushButton
+        <PushButton
           className="font-inter transition hover:scale-105 active:scale-95 active:brightness-95"
           disabled={disabled}
-          onClick={() => checkResult(true)}
+          onClick={() => createNewAudios()}
         >
           Skip
-        </PushButton> */}
+        </PushButton>
       </div>
     </div>
   );

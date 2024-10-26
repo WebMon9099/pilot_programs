@@ -11,7 +11,7 @@ export const POSSIBLE_SHAPES: ShapeType[] = [
   'right-triangle',
 ];
 
-export const LETTERS_SERIES_LENGTH = 3;
+export const LETTERS_SERIES_LENGTH = 6;
 
 export const SHAPE_SERIES_LENGTH = 5;
 
