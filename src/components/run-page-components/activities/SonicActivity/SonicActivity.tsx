@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useState, useRef } from 'react';
 import { useIntervalActivity, useSound } from '../../../../hooks';
 import { appendClass } from '../../../../lib';
 import { ActivityComponent } from '../../../../types';
@@ -31,6 +31,10 @@ const SonicActivity: ActivityComponent = ({
   const [letters, setLetters] = useState<String[]>([]);
   const [playingSounds, setPlayingSounds] = useState<String[]>([]);
   const [isPlayingAudio, setIsPlayingAudio] = useState(true);
+  const [playingIndex, setPlayingIndex] = useState(0);
+  const playingSoundsRef = useRef(playingSounds);
+  const isPlayingAudioRef = useRef(isPlayingAudio);
+  const playingIndexRef = useRef(playingIndex);
 
   const [showLeft, setShowLeft] = useState(true);
   const [showTopRight, setShowTopRight] = useState(true);
@@ -106,18 +110,29 @@ const SonicActivity: ActivityComponent = ({
           shape_num--;
         }
 
-        const newLetters: String[] = [];
-        const newPlayingSounds: String[] = [];
-        for (var i = 0; i < LETTERS_SERIES_LENGTH; i++){
-          let item = _.sample(ALPHABETA_LETTERS)!;
-          newLetters.push(item);
-          newPlayingSounds.push(item + ".wav");
+
+        let deplay_tiem = 0;
+        if (playingSoundsRef.current && playingSoundsRef.current.length > 0){
+          for (var i = playingIndexRef.current;i < LETTERS_SERIES_LENGTH; i++){
+            deplay_tiem += (1000 + SOUND_BASE_DELAY_AMOUNT);
+          }
         }
+
+        setTimeout(() => {
+          const newLetters: String[] = [];
+          const newPlayingSounds: String[] = [];
+          for (var i = 0; i < LETTERS_SERIES_LENGTH; i++){
+            let item = _.sample(ALPHABETA_LETTERS)!;
+            newLetters.push(item);
+            newPlayingSounds.push(item + ".wav");
+          }
+          setLetters(newLetters);
+          setPlayingSounds(newPlayingSounds);
+        }, deplay_tiem);
+        
 
         setNumbersState({ numbers: newNumbers, op: mathOp });
         setShapes(newShapes);
-        setLetters(newLetters);
-        setPlayingSounds(newPlayingSounds);
       }, []),
       choicesCreator: useCallback(() => {}, []),
       initialUserAnswer: { mathSame: null, soundCheckGood: null, detectTriangleGood: null },
@@ -171,43 +186,51 @@ const SonicActivity: ActivityComponent = ({
   }, [setVolume, showBottomRight]);
 
   useEffect(() => {
+    isPlayingAudioRef.current = isPlayingAudio;
+    playingSoundsRef.current = playingSounds;
+    playingIndexRef.current = playingIndex;
+  }, [isPlayingAudio, playingSounds, playingIndex]);
+
+  useEffect(() => {
     if (playingSounds.length === 0) return;
     setIsPlayingAudio(true);
-    if (isPlayingAudio){
-      (function playSounds(index: number) {
-        if (playingSounds.length === 0) return;
-        const currentSound = playingSounds[index];
-        
-        playSound(
-          `${process.env.PUBLIC_URL}/sounds/alphabeta/${currentSound}`,
-          function afterStart() {
-            setTimeout(() => {
-              if (index < playingSounds.length - 1) {
-                if(isPlayingAudio){
-                  playSounds(index + 1);
-                  setIsPlayingAudio(true);
-                }
-              } else {
-                setIsPlayingAudio(false);
-                setPlayingSounds([]);
+    (function playSounds(index: number) {
+      if (playingSounds.length === 0) return;
+      setPlayingIndex(index);
+      const currentSound = playingSounds[index];
+      
+      playSound(
+        `${process.env.PUBLIC_URL}/sounds/alphabeta/${currentSound}`,
+        function afterStart() {
+          setTimeout(() => {
+            if (index < playingSounds.length - 1) {
+              if(isPlayingAudio){
+                playSounds(index + 1);
+                setIsPlayingAudio(true);
               }
-            }, 1000 * sound.duration + SOUND_BASE_DELAY_AMOUNT);
-          },
-          function errorWhilePlaying(reason) {
-            console.log(
-              'Audio play has not been started for the following reason: ',
-              reason.toString()
-            );
-          }
-        );
-      })(0);
-    }
+            } else {
+              setIsPlayingAudio(false);
+              setPlayingSounds([]);
+              setPlayingIndex(0);
+            }
+          }, 1000 * sound.duration + SOUND_BASE_DELAY_AMOUNT);
+        },
+        function errorWhilePlaying(reason) {
+          console.log(
+            'Audio play has not been started for the following reason: ',
+            reason.toString()
+          );
+        }
+      );
+    })(0);
+    
     
   }, [sound, playSound, state, letters, isPlayingAudio]);
 
   const createNewAudios = () => {
     setLetters([]);
     setPlayingSounds([]);
+    setPlayingIndex(0);
     setIsPlayingAudio(false);
     if (sound){
       sound.pause();
@@ -222,7 +245,7 @@ const SonicActivity: ActivityComponent = ({
       }
       setLetters(newLetters);
       setPlayingSounds(newPlayingSounds);
-    }, 100);
+    }, 500);
   }
 
   return (
