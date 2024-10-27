@@ -193,9 +193,16 @@ const SonicActivity: ActivityComponent = ({
 
   useEffect(() => {
     if (playingSounds.length === 0) return;
+    if (!showBottomRight) return;
+    if (activityState.paused) return;
     setIsPlayingAudio(true);
     (function playSounds(index: number) {
       if (playingSounds.length === 0) return;
+      if (!showBottomRight) return;
+      if (activityState.paused) {
+        sound.pause();
+        return;
+      }
       setPlayingIndex(index);
       const currentSound = playingSounds[index];
       
@@ -205,7 +212,8 @@ const SonicActivity: ActivityComponent = ({
           setTimeout(() => {
             if (index < playingSounds.length - 1) {
               if(isPlayingAudio){
-                playSounds(index + 1);
+                // playSounds(index + 1);
+                setPlayingIndex(playingIndex => playingIndex + 1);
                 setIsPlayingAudio(true);
               }
             } else {
@@ -222,10 +230,10 @@ const SonicActivity: ActivityComponent = ({
           );
         }
       );
-    })(0);
+    })(playingIndex);
     
     
-  }, [sound, playSound, state, letters, isPlayingAudio]);
+  }, [sound, playSound, state, letters, isPlayingAudio, playingSounds, showBottomRight, activityState.paused, playingIndex]);
 
   const createNewAudios = () => {
     setLetters([]);
@@ -254,19 +262,21 @@ const SonicActivity: ActivityComponent = ({
       className={appendClass('activity sonic-activity', rest.className)}
     >
       <div className="left">
-        <DetectTriangle
-          disabled={userAnswer.detectTriangleGood !== null || activityState.paused}
-          setDetectTriangleGood={setDetectTriangleGood}
-          shapes={shapes}
-          interval = {10000}
-        />
         {!showLeft ? (
           <img
             className="no-entry-icon"
             src={require('./images/svgs/no_entry_sign.svg').default}
             alt="Disabled"
           />
-        ) : null}
+        ) : (
+          <DetectTriangle
+            disabled={userAnswer.detectTriangleGood !== null || activityState.paused}
+            setDetectTriangleGood={setDetectTriangleGood}
+            shapes={shapes}
+            interval = {10000}
+            isPaused = {activityState.paused}
+          />
+        )}
       </div>
       <div className="top-right">
         {showTopRight ? (

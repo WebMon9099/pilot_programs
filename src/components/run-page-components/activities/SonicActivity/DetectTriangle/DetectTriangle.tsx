@@ -8,6 +8,7 @@ interface MathProps extends React.HTMLAttributes<HTMLDivElement> {
   setDetectTriangleGood: (detectTriangleGood: boolean) => void;
   shapes: ShapeType[];
   interval: number;
+  isPaused:boolean;
 }
 
 const DetectTriangle: React.FC<MathProps> = ({
@@ -15,6 +16,7 @@ const DetectTriangle: React.FC<MathProps> = ({
   setDetectTriangleGood,
   shapes,
   interval,
+  isPaused,
   ...rest
 }) => {
 
@@ -23,18 +25,16 @@ const DetectTriangle: React.FC<MathProps> = ({
   useEffect(() => {
     
     const progress_timer = setInterval(() => {
-      setProgressHeight(progressHeight => (progressHeight - 1000/interval) > 0? progressHeight - 1000/interval : 0);
+      if (!isPaused){
+        setProgressHeight(progressHeight => (progressHeight - 1000/interval) > 0? progressHeight - 1000/interval : 100);
+      }
+      
     }, 10);
 
-    const main_timer = setInterval(() => {
-      setProgressHeight(100);
-    }, interval)
-
     return () => {
-      clearInterval(main_timer);
       clearInterval(progress_timer);
     }
-  }, [])
+  }, [isPaused])
 
   function getShapeElement(shape: ShapeType, index: number) {
     switch (shape) {
