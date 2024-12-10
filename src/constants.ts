@@ -274,7 +274,7 @@ export const ACTIVITIES: { [key: string]: ActivityObject } = {
     gear: {
       mouse: true,
     },
-    settings: false,
+    settings: true,
   },
   align: {
     path: 'align',

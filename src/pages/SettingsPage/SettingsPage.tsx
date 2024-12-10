@@ -16,6 +16,8 @@ const SettingsPage: React.FC = () => {
     return ACTIVITIES[activityName];
   }, [location.pathname]);
 
+  console.log('activityObject', activityObject);
+
   return (
     <div className="page settings-page flex flex-col">
       <GlobalNavbar
@@ -26,6 +28,7 @@ const SettingsPage: React.FC = () => {
       <Settings
         className="mx-[64px] my-[32px] flex-1"
         closeSettings={() => navigate(-1)}
+        active_name={activityObject.name}
       />
     </div>
   );

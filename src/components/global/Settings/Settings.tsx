@@ -14,9 +14,10 @@ import {
 
 interface SettingsProps extends React.HTMLAttributes<HTMLDivElement> {
   closeSettings: Callback;
+  active_name?: String
 }
 
-const Settings: React.FC<SettingsProps> = ({ closeSettings, ...rest }) => {
+const Settings: React.FC<SettingsProps> = ({ closeSettings, active_name, ...rest }) => {
   const {
     setOnScreenJoystickPosition,
     setOnScreenJoystickSize,
@@ -80,16 +81,34 @@ const Settings: React.FC<SettingsProps> = ({ closeSettings, ...rest }) => {
             />
           </PushButton>
         </div>
-        <TabButtons
-          tabs={AVAILABLE_TABS}
-          activatedTabIndex={activatedTabIndex}
-          setActivatedTabIndex={setActivatedTabIndex}
-        />
+        {active_name === 'Control' ? (
+          <TabButtons
+            tabs={[AVAILABLE_TABS[1], AVAILABLE_TABS[2]]}
+            activatedTabIndex={activatedTabIndex}
+            setActivatedTabIndex={setActivatedTabIndex}
+          />
+        ) : (
+          <TabButtons
+            tabs={AVAILABLE_TABS}
+            activatedTabIndex={activatedTabIndex}
+            setActivatedTabIndex={setActivatedTabIndex}
+          />
+        )}
       </div>
       <div className="relative flex flex-1 flex-col border-t border-[#ddd] bg-white px-[4vw] pb-[4vh]">
-        {activatedTabIndex === 0 && <OnScreenJoystickTab />}
-        {activatedTabIndex === 1 && <MouseAndTrackpadTab />}
-        {activatedTabIndex === 2 && <ExternalJoystickTab />}
+        {active_name === 'Control' ? (
+          <>
+          {activatedTabIndex === 0 && <MouseAndTrackpadTab />}
+          {activatedTabIndex === 1 && <ExternalJoystickTab />}
+          </>
+        ) : (
+          <>
+          {activatedTabIndex === 0 && <OnScreenJoystickTab />}
+          {activatedTabIndex === 1 && <MouseAndTrackpadTab />}
+          {activatedTabIndex === 2 && <ExternalJoystickTab />}
+          </>
+        )}
+        
         <div className="buttons mt-auto">
           <PushButton
             className="cancel-button"

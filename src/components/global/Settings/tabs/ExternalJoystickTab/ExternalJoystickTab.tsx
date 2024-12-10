@@ -19,13 +19,13 @@ const ExternalJoystickTab: React.FC<React.HTMLAttributes<HTMLDivElement>> = ({
           className={selectedJoystickTab === "Left" ? "selected" : ""}
           onClick={() => setSelectedJoystickTab("Left")}
         >
-          Left Joystick
+          Left Controller
         </button>
         <button
           className={selectedJoystickTab === "Right" ? "selected" : ""}
           onClick={() => setSelectedJoystickTab("Right")}
         >
-          Right Joystick
+          Right Controller
         </button>
       </div>
       <div className="row">

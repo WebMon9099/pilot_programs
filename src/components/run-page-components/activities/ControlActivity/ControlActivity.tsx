@@ -108,9 +108,65 @@ const ControlActivity: ActivityComponent = ({
       }
     );
 
+    const leftJoystickAxesChangeListener = addControlEventListener(
+      "left-physical-axes-change",
+      (axes) => {
+        // if (axes.x > 0.5){
+        //   setRightPressed(true);
+        //   setLeftPressed(false);
+        // } else if(axes.x < -0.5){
+        //   setRightPressed(false);
+        //   setLeftPressed(true);
+        // } else {
+        //   setRightPressed(false);
+        //   setLeftPressed(false);
+        // }
+
+        if (axes.y > 0.5){
+          setUpPressed(true);
+          setDownPressed(false);
+        } else if(axes.y < -0.5){
+          setUpPressed(false);
+          setDownPressed(true);
+        } else {
+          setUpPressed(false);
+          setDownPressed(false);
+        }
+      }
+    );
+
+    const rightJoystickAxesChangeListener = addControlEventListener(
+      "right-physical-axes-change",
+      (axes) => {
+        if (axes.x > 0.5){
+          setRightPressed(true);
+          setLeftPressed(false);
+        } else if(axes.x < -0.5){
+          setRightPressed(false);
+          setLeftPressed(true);
+        } else {
+          setRightPressed(false);
+          setLeftPressed(false);
+        }
+
+        // if (axes.y > 0.5){
+        //   setUpPressed(true);
+        //   setDownPressed(false);
+        // } else if(axes.y < -0.5){
+        //   setUpPressed(false);
+        //   setDownPressed(true);
+        // } else {
+        //   setUpPressed(false);
+        //   setDownPressed(false);
+        // }
+      }
+    );
+
     return () => {
       removeControlEventListener(arrowKeyPressEventListener);
       removeControlEventListener(wasdKeyPressEventListener);
+      removeControlEventListener(leftJoystickAxesChangeListener);
+      removeControlEventListener(rightJoystickAxesChangeListener);
     };
   }, [addControlEventListener, removeControlEventListener]);
 
