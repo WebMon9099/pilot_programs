@@ -1,4 +1,4 @@
-import { Callback, SetState } from '../../types';
+import { Callback, SetState } from "../../types";
 
 export enum ArrowKey {
   Up,
@@ -15,20 +15,15 @@ export enum WASDKey {
 }
 
 export enum OnScreenJoystickPosition {
-  Left = 'Left',
-  Right = 'Right',
-  Disabled = 'Disabled',
+  Left = "Left",
+  Right = "Right",
+  Disabled = "Disabled",
 }
 
 export enum OnScreenJoystickSize {
-  S = 'S',
-  M = 'M',
-  L = 'L',
-}
-
-export interface ConnectedGamepad {
-  name: string;
-  index: number;
+  S = "S",
+  M = "M",
+  L = "L",
 }
 
 export type Axis = { x: number; y: number };
@@ -48,17 +43,17 @@ export type WASDKeysListener = (keys: {
 export type SpeedChangeCallback = (newSpeed: number) => void;
 
 export interface EventHandlersMap {
-  'left-physical-axes-change': AxesChangeCallback;
-  'right-physical-axes-change': AxesChangeCallback;
-  'on-screen-joystick-axes-change': AxesChangeCallback;
-  'mouse-axes-change': AxesChangeCallback;
-  'arrow-key-press': ArrowKeysListener;
-  'wasd-key-press': WASDKeysListener;
-  'speed-change': SpeedChangeCallback;
+  "left-physical-axes-change": AxesChangeCallback;
+  "right-physical-axes-change": AxesChangeCallback;
+  "on-screen-joystick-axes-change": AxesChangeCallback;
+  "mouse-axes-change": AxesChangeCallback;
+  "arrow-key-press": ArrowKeysListener;
+  "wasd-key-press": WASDKeysListener;
+  "speed-change": SpeedChangeCallback;
 }
 
 export type AddControlEventListenerFunction = <
-  E extends keyof EventHandlersMap
+  E extends keyof EventHandlersMap,
 >(
   event: E,
   handler: EventHandlersMap[E]
@@ -72,27 +67,32 @@ export interface EventListener {
   handler: EventHandlersMap[keyof EventHandlersMap];
 }
 
-export interface ActiveGamepadOptions {
+export interface GamepadOptions {
   invertX: boolean;
   invertY: boolean;
   sensitivityX: number;
   sensitivityY: number;
 }
-export interface ActiveGamepad extends ActiveGamepadOptions {
-  gamepad: ConnectedGamepad;
+
+export interface Gamepad {
+  id: string;
+  name: string;
+  index: number;
 }
 
 export interface ControlsContextState {
   onScreenJoystickPosition: OnScreenJoystickPosition;
   onScreenJoystickSize: OnScreenJoystickSize;
   mouseSensitivity: number;
-  availableGamepads: ConnectedGamepad[];
-  leftActiveGamepad: ActiveGamepad | undefined;
-  rightActiveGamepad: ActiveGamepad | undefined;
-  setLeftActiveGamepad: (gamepad?: ConnectedGamepad) => void;
-  setLeftGamepadOptions: (options: Partial<ActiveGamepadOptions>) => void;
-  setRightActiveGamepad: (gamepad?: ConnectedGamepad) => void;
-  setRightGamepadOptions: (options: Partial<ActiveGamepadOptions>) => void;
+  availableGamepads: Gamepad[];
+  leftActiveGamepad: Gamepad | undefined;
+  rightActiveGamepad: Gamepad | undefined;
+  leftGamepadOptions: GamepadOptions;
+  rightGamepadOptions: GamepadOptions;
+  setLeftActiveGamepad: (gamepad?: Gamepad) => void;
+  setRightActiveGamepad: (gamepad?: Gamepad) => void;
+  updateLeftGamepadOptions: (options: Partial<GamepadOptions>) => void;
+  updateRightGamepadOptions: (options: Partial<GamepadOptions>) => void;
   setOnScreenJoystickPosition: SetState<OnScreenJoystickPosition>;
   setOnScreenJoystickSize: SetState<OnScreenJoystickSize>;
   setMouseSensitivity: SetState<number>;

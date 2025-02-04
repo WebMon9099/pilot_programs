@@ -1,11 +1,11 @@
-import _ from 'lodash';
-import { useCallback, useEffect, useRef, useState } from 'react';
-import { useClock, useControls } from '../../../../hooks';
-import useTimeActivity from '../../../../hooks/useActivity/useTimeActivity/useTimeActivity';
-import { animate } from '../../../../lib';
-import { ActivityComponent } from '../../../../types';
-import './SlalomActivity.scss';
-import Utils from './utils';
+import _ from "lodash";
+import { useCallback, useEffect, useRef, useState } from "react";
+import { useClock, useControls } from "../../../../hooks";
+import useTimeActivity from "../../../../hooks/useActivity/useTimeActivity/useTimeActivity";
+import { animate } from "../../../../lib";
+import { ActivityComponent } from "../../../../types";
+import "./SlalomActivity.scss";
+import Utils from "./utils";
 
 interface Dot {
   x: number;
@@ -34,6 +34,7 @@ const SlalomActivity: ActivityComponent = ({
     addControlEventListener,
     removeControlEventListener,
     leftActiveGamepad,
+    leftGamepadOptions,
   } = useControls();
 
   useTimeActivity(activityObject, activityState, activityActions);
@@ -78,27 +79,27 @@ const SlalomActivity: ActivityComponent = ({
   useEffect(() => {
     if (!containerRef.current) return;
 
-    if (activityParams?.type === 'Dynamic') margin = 30;
+    if (activityParams?.type === "Dynamic") margin = 30;
     else {
       speed += 1.75;
       baseSpeed += 2;
     }
 
     setCanvasWidth(
-      activityParams?.type === 'Fixed'
+      activityParams?.type === "Fixed"
         ? containerRef.current.clientWidth
         : containerRef.current.clientHeight
     );
     setCanvasHeight(containerRef.current.clientHeight);
     setCanvasXMargin(
-      (activityParams?.type === 'Fixed'
+      (activityParams?.type === "Fixed"
         ? containerRef.current.clientWidth
         : containerRef.current.clientHeight) /
         (100 / margin)
     );
 
     setPlaneX(
-      (activityParams?.type === 'Fixed'
+      (activityParams?.type === "Fixed"
         ? containerRef.current.clientWidth
         : containerRef.current.clientHeight) / 2
     );
@@ -109,7 +110,7 @@ const SlalomActivity: ActivityComponent = ({
     if (activityState.paused) return;
 
     const keyPressListener = addControlEventListener(
-      'arrow-key-press',
+      "arrow-key-press",
       (keys) => {
         if (keys.right) goToX((x) => x + controlSpeed);
         if (keys.left) goToX((x) => x - controlSpeed);
@@ -117,7 +118,7 @@ const SlalomActivity: ActivityComponent = ({
     );
 
     const wasdPressListener = addControlEventListener(
-      'wasd-key-press',
+      "wasd-key-press",
       (keys) => {
         if (keys.a) goToX((x) => x - controlSpeed);
         if (keys.d) goToX((x) => x + controlSpeed);
@@ -125,26 +126,26 @@ const SlalomActivity: ActivityComponent = ({
     );
 
     const physicalAxesChangeListener = addControlEventListener(
-      'left-physical-axes-change',
+      "left-physical-axes-change",
       (axes) => {
         if (!leftActiveGamepad) return;
 
         goToX(
           (x) =>
-            x + axes.x * ((controlSpeed * leftActiveGamepad.sensitivityX) / 50)
+            x + axes.x * ((controlSpeed * leftGamepadOptions.sensitivityX) / 50)
         );
       }
     );
 
     const onScreenJoystickAxesChangeListener = addControlEventListener(
-      'on-screen-joystick-axes-change',
+      "on-screen-joystick-axes-change",
       (axes) => {
         goToX((x) => x + controlSpeed * axes.x);
       }
     );
 
     const speedChangeListener = addControlEventListener(
-      'speed-change',
+      "speed-change",
       (newSpeed) => {
         speed = (newSpeed + 3) * baseSpeed;
       }
@@ -163,6 +164,7 @@ const SlalomActivity: ActivityComponent = ({
     addControlEventListener,
     removeControlEventListener,
     leftActiveGamepad,
+    leftGamepadOptions.sensitivityX,
   ]);
 
   useEffect(() => {
@@ -215,7 +217,7 @@ const SlalomActivity: ActivityComponent = ({
     return animate(() => {
       if (!canvasRef.current) return;
 
-      const context = canvasRef.current.getContext('2d');
+      const context = canvasRef.current.getContext("2d");
       if (!context) return;
 
       context.clearRect(0, 0, canvasWidth, canvasHeight);
@@ -224,7 +226,7 @@ const SlalomActivity: ActivityComponent = ({
 
       pairs.forEach((pair, i) => {
         pair.forEach((dot) => {
-          Utils.drawCircle(context, dot.x, dot.y, 7, '#fff');
+          Utils.drawCircle(context, dot.x, dot.y, 7, "#fff");
 
           dot.y += speed;
         });
@@ -295,7 +297,7 @@ const SlalomActivity: ActivityComponent = ({
   ]);
 
   useEffect(() => {
-    if (activityParams?.type === 'Dynamic') {
+    if (activityParams?.type === "Dynamic") {
       rotationTimeout = setRotationTimeout();
 
       return () => {
@@ -304,11 +306,14 @@ const SlalomActivity: ActivityComponent = ({
     }
 
     function setRotationTimeout() {
-      return clock.addTimeout(() => {
-        setRotation(_.random(0, 6) * 60);
+      return clock.addTimeout(
+        () => {
+          setRotation(_.random(0, 6) * 60);
 
-        rotationTimeout = setRotationTimeout();
-      }, _.random(3, 12) * 1000);
+          rotationTimeout = setRotationTimeout();
+        },
+        _.random(3, 12) * 1000
+      );
     }
   }, [clock, activityParams]);
 
@@ -328,7 +333,7 @@ const SlalomActivity: ActivityComponent = ({
         className="relative"
         style={{
           transform: `rotate(${rotation}deg)`,
-          transition: 'transform 7s',
+          transition: "transform 7s",
           width: canvasWidth,
           height: canvasHeight,
         }}
@@ -338,7 +343,7 @@ const SlalomActivity: ActivityComponent = ({
           className="absolute bottom-24 h-48 -translate-x-1/2 -translate-y-1/2 -rotate-90"
           alt="aircraft"
           style={{ left: planeX, top: planeY }}
-          src={require('./images/aircraft.png')}
+          src={require("./images/aircraft.png")}
           ref={planeRef}
         />
       </div>

@@ -1,15 +1,15 @@
-import { useControls } from '../../../../../../hooks';
+import { useControls } from "../../../../../../hooks";
 import {
   Dropdown,
   HorizontalRadio,
   LabeledBox,
   NewSlider,
-} from '../../../../../core';
-import { JOYSTICK_TEXT } from '../constants';
-import JoystickTester from '../JoystickTester';
+} from "../../../../../core";
+import { JOYSTICK_TEXT } from "../constants";
+import JoystickTester from "../JoystickTester";
 
 interface JoystickTabProps {
-  of: 'Left' | 'Right';
+  of: "Left" | "Right";
 }
 
 const JoystickTab: React.FC<JoystickTabProps> = ({ of }) => {
@@ -17,22 +17,26 @@ const JoystickTab: React.FC<JoystickTabProps> = ({ of }) => {
     availableGamepads,
     leftActiveGamepad,
     rightActiveGamepad,
+    leftGamepadOptions,
+    rightGamepadOptions,
     setLeftActiveGamepad,
-    setLeftGamepadOptions,
     setRightActiveGamepad,
-    setRightGamepadOptions,
+    updateLeftGamepadOptions,
+    updateRightGamepadOptions,
   } = useControls();
 
   const axisBoxesStyle = {
     opacity: availableGamepads.length === 0 ? 0.5 : undefined,
-    filter: availableGamepads.length === 0 ? 'grayscale(1)' : undefined,
-    pointerEvents: availableGamepads.length === 0 ? 'none' : undefined,
+    filter: availableGamepads.length === 0 ? "grayscale(1)" : undefined,
+    pointerEvents: availableGamepads.length === 0 ? "none" : undefined,
   } as React.CSSProperties;
 
   const relevantGamepad =
-    of === 'Left' ? leftActiveGamepad : rightActiveGamepad;
-  const relaventOptionsDispatch =
-    of === 'Left' ? setLeftGamepadOptions : setRightGamepadOptions;
+    of === "Left" ? leftActiveGamepad : rightActiveGamepad;
+  const relevantOptions =
+    of === "Left" ? leftGamepadOptions : rightGamepadOptions;
+  const relevantOptionsUpdateDispatch =
+    of === "Left" ? updateLeftGamepadOptions : updateRightGamepadOptions;
 
   return (
     <>
@@ -43,18 +47,22 @@ const JoystickTab: React.FC<JoystickTabProps> = ({ of }) => {
             Joystick selected:
           </span>
           <Dropdown
-            options={availableGamepads.map((gamepad) => gamepad.name)}
+            options={availableGamepads.map((gamepad) => ({
+              key: gamepad.id,
+              label: gamepad.name,
+            }))}
             emptyLabel="No Devices Found"
-            selected={relevantGamepad?.gamepad.name || ''}
+            selected={relevantGamepad?.id || ""}
             onSelection={(option) => {
               const gamepad = availableGamepads.find(
-                (gamepad) => gamepad?.name === option
+                (gamepad) => gamepad?.id === option
               );
 
-              of === 'Left'
+              of === "Left"
                 ? setLeftActiveGamepad(gamepad)
                 : setRightActiveGamepad(gamepad);
             }}
+            align="left"
           />
         </div>
         <div className="my-auto h-[1px] bg-[#ddd]" />
@@ -72,21 +80,25 @@ const JoystickTab: React.FC<JoystickTabProps> = ({ of }) => {
                 className="h-[12px] flex-1 px-0 pt-[4px]"
                 min={0}
                 max={100}
-                value={relevantGamepad?.sensitivityX || 50}
-                onValueChange={(sensitivityX) =>
-                  relaventOptionsDispatch({ sensitivityX })
-                }
+                value={relevantOptions.sensitivityX || 50}
+                onValueChange={(sensitivityX) => {
+                  if (!relevantGamepad) return;
+
+                  relevantOptionsUpdateDispatch({ sensitivityX });
+                }}
               />
             </div>
             <div className="invert-container">
               <span>Invert Axis:</span>
               <HorizontalRadio
                 className="shrink-0"
-                options={['Yes', 'No']}
-                chosen={relevantGamepad?.invertX ? 'Yes' : 'No'}
-                onChoiceChange={(choice) =>
-                  relaventOptionsDispatch({ invertX: choice === 'Yes' })
-                }
+                options={["Yes", "No"]}
+                chosen={relevantOptions.invertX ? "Yes" : "No"}
+                onChoiceChange={(choice) => {
+                  if (!relevantGamepad) return;
+
+                  relevantOptionsUpdateDispatch({ invertX: choice === "Yes" });
+                }}
               />
               {/* <Checkbox
                 overrideChecked={relevantGamepad?.invertX}
@@ -103,10 +115,12 @@ const JoystickTab: React.FC<JoystickTabProps> = ({ of }) => {
                 className="h-[12px] flex-1 px-0 pt-[4px]"
                 min={0}
                 max={100}
-                value={relevantGamepad?.sensitivityY || 50}
-                onValueChange={(sensitivityY) =>
-                  relaventOptionsDispatch({ sensitivityY })
-                }
+                value={relevantOptions.sensitivityY || 50}
+                onValueChange={(sensitivityY) => {
+                  if (!relevantGamepad) return;
+
+                  relevantOptionsUpdateDispatch({ sensitivityY });
+                }}
               />
               {/* <Slider
                 overrideValue={relevantGamepad?.sensitivityY}
@@ -119,11 +133,13 @@ const JoystickTab: React.FC<JoystickTabProps> = ({ of }) => {
               <span>Invert Axis:</span>
               <HorizontalRadio
                 className="shrink-0"
-                options={['Yes', 'No']}
-                chosen={relevantGamepad?.invertY ? 'Yes' : 'No'}
-                onChoiceChange={(choice) =>
-                  relaventOptionsDispatch({ invertY: choice === 'Yes' })
-                }
+                options={["Yes", "No"]}
+                chosen={relevantOptions.invertY ? "Yes" : "No"}
+                onChoiceChange={(choice) => {
+                  if (!relevantGamepad) return;
+
+                  relevantOptionsUpdateDispatch({ invertY: choice === "Yes" });
+                }}
               />
               {/* <Checkbox
                 overrideChecked={relevantGamepad?.invertY}

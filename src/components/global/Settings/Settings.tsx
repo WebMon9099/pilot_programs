@@ -1,29 +1,33 @@
-import { useEffect, useState } from 'react';
-import { CONTROLS_CONTEXT_INITIAL_STATE } from '../../../context/ControlsContext/constants';
-import { useControls } from '../../../hooks';
-import { appendClass } from '../../../lib';
-import { Callback } from '../../../types';
-import { PushButton } from '../../core';
-import TabButtons from './TabButtons';
-import { AVAILABLE_TABS } from './constants';
+import { useEffect, useState } from "react";
+import { CONTROLS_CONTEXT_INITIAL_STATE } from "../../../context/ControlsContext/constants";
+import { useControls } from "../../../hooks";
+import { appendClass } from "../../../lib";
+import { Callback } from "../../../types";
+import { PushButton } from "../../core";
+import TabButtons from "./TabButtons";
+import { AVAILABLE_TABS } from "./constants";
 import {
   ExternalJoystickTab,
   MouseAndTrackpadTab,
   OnScreenJoystickTab,
-} from './tabs';
+} from "./tabs";
 
 interface SettingsProps extends React.HTMLAttributes<HTMLDivElement> {
   closeSettings: Callback;
-  active_name?: String
+  active_name?: String;
 }
 
-const Settings: React.FC<SettingsProps> = ({ closeSettings, active_name, ...rest }) => {
+const Settings: React.FC<SettingsProps> = ({
+  closeSettings,
+  active_name,
+  ...rest
+}) => {
   const {
+    updateLeftGamepadOptions,
+    updateRightGamepadOptions,
     setOnScreenJoystickPosition,
     setOnScreenJoystickSize,
     setMouseSensitivity,
-    setLeftGamepadOptions,
-    setRightGamepadOptions,
     save,
     load,
   } = useControls();
@@ -43,14 +47,14 @@ const Settings: React.FC<SettingsProps> = ({ closeSettings, active_name, ...rest
       setMouseSensitivity(CONTROLS_CONTEXT_INITIAL_STATE.mouseSensitivity);
     }
     if (activatedTabIndex === 2 || all) {
-      setLeftGamepadOptions({
+      updateLeftGamepadOptions({
         invertX: false,
         invertY: false,
         sensitivityX: 50,
         sensitivityY: 50,
       });
 
-      setRightGamepadOptions({
+      updateRightGamepadOptions({
         invertX: false,
         invertY: false,
         sensitivityX: 50,
@@ -68,7 +72,7 @@ const Settings: React.FC<SettingsProps> = ({ closeSettings, active_name, ...rest
   useEffect(() => load(), [load]);
 
   return (
-    <div {...rest} className={appendClass('settings', rest.className)}>
+    <div {...rest} className={appendClass("settings", rest.className)}>
       <div className="bg-[#f7f7f7] px-[4vw] pt-[4vh]">
         <div className="header mb-[16px]">
           <h2>Settings</h2>
@@ -76,12 +80,12 @@ const Settings: React.FC<SettingsProps> = ({ closeSettings, active_name, ...rest
             Get help with Settings
             <img
               className="ml-[8px] h-[20px] w-[20px]"
-              src={require('./images/svgs/get_help.svg').default}
+              src={require("./images/svgs/get_help.svg").default}
               alt="Help Icon"
             />
           </PushButton>
         </div>
-        {active_name === 'Control' ? (
+        {active_name === "Control" ? (
           <TabButtons
             tabs={[AVAILABLE_TABS[1], AVAILABLE_TABS[2]]}
             activatedTabIndex={activatedTabIndex}
@@ -96,19 +100,19 @@ const Settings: React.FC<SettingsProps> = ({ closeSettings, active_name, ...rest
         )}
       </div>
       <div className="relative flex flex-1 flex-col border-t border-[#ddd] bg-white px-[4vw] pb-[4vh]">
-        {active_name === 'Control' ? (
+        {active_name === "Control" ? (
           <>
-          {activatedTabIndex === 0 && <MouseAndTrackpadTab />}
-          {activatedTabIndex === 1 && <ExternalJoystickTab />}
+            {activatedTabIndex === 0 && <MouseAndTrackpadTab />}
+            {activatedTabIndex === 1 && <ExternalJoystickTab />}
           </>
         ) : (
           <>
-          {activatedTabIndex === 0 && <OnScreenJoystickTab />}
-          {activatedTabIndex === 1 && <MouseAndTrackpadTab />}
-          {activatedTabIndex === 2 && <ExternalJoystickTab />}
+            {activatedTabIndex === 0 && <OnScreenJoystickTab />}
+            {activatedTabIndex === 1 && <MouseAndTrackpadTab />}
+            {activatedTabIndex === 2 && <ExternalJoystickTab />}
           </>
         )}
-        
+
         <div className="buttons mt-auto">
           <PushButton
             className="cancel-button"

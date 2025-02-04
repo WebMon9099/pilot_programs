@@ -1,17 +1,17 @@
-import _ from 'lodash';
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import * as THREE from 'three';
-import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
+import _ from "lodash";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import * as THREE from "three";
+import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 import {
   Axis,
   OnScreenJoystickPosition,
-} from '../../../../context/ControlsContext';
-import { useControls } from '../../../../hooks';
-import useTimeActivity from '../../../../hooks/useActivity/useTimeActivity/useTimeActivity';
-import { animate, appendClass } from '../../../../lib';
-import { ActivityComponent } from '../../../../types';
-import { BARRIERS_TYPES } from './constants';
-import { BarrierType } from './types';
+} from "../../../../context/ControlsContext";
+import { useControls } from "../../../../hooks";
+import useTimeActivity from "../../../../hooks/useActivity/useTimeActivity/useTimeActivity";
+import { animate, appendClass } from "../../../../lib";
+import { ActivityComponent } from "../../../../types";
+import { BARRIERS_TYPES } from "./constants";
+import { BarrierType } from "./types";
 
 var scene: THREE.Scene;
 var camera = new THREE.PerspectiveCamera();
@@ -26,7 +26,7 @@ const SpinActivity: ActivityComponent = ({
   ...rest
 }) => {
   const {
-    leftActiveGamepad,
+    leftGamepadOptions,
     mouseSensitivity,
     onScreenJoystickPosition,
     setMouseTrackDiv,
@@ -48,7 +48,7 @@ const SpinActivity: ActivityComponent = ({
 
   const generateBarrier = useCallback(() => {
     return availableBarriers.current[
-      _.sample(BARRIERS_TYPES.filter((type) => type !== 'barrier-hollow'))!
+      _.sample(BARRIERS_TYPES.filter((type) => type !== "barrier-hollow"))!
     ]!.clone();
   }, []);
 
@@ -60,9 +60,9 @@ const SpinActivity: ActivityComponent = ({
       barrier.position.setZ(currentZ);
       // Change the barrier color
       barrier.material = new THREE.MeshBasicMaterial({
-        color: 0x5A646A,
+        color: 0x5a646a,
       });
-      
+
       barrier.userData = {
         direction: _.sample([1, -1]),
       };
@@ -109,7 +109,7 @@ const SpinActivity: ActivityComponent = ({
 
     const ambientLight = new THREE.AmbientLight(0xffffff);
 
-    scene.background = new THREE.Color(0x96D4EA);
+    scene.background = new THREE.Color(0x96d4ea);
 
     scene.add(ambientLight);
 
@@ -119,13 +119,13 @@ const SpinActivity: ActivityComponent = ({
   const loadModels = useCallback(() => {
     const gltfLoader = new GLTFLoader();
 
-    gltfLoader.load(require('./models/objects.glb'), function onLoad(glb) {
+    gltfLoader.load(require("./models/objects.glb"), function onLoad(glb) {
       glb.scene.traverse((obj) => {
-        if (obj instanceof THREE.Mesh && obj.name !== 'tunnel')
+        if (obj instanceof THREE.Mesh && obj.name !== "tunnel")
           availableBarriers.current[obj.name as BarrierType] = obj;
       });
 
-      const tunnel = glb.scene.getObjectByName('tunnel');
+      const tunnel = glb.scene.getObjectByName("tunnel");
 
       if (!tunnel || !(tunnel instanceof THREE.Mesh)) return;
 
@@ -138,7 +138,7 @@ const SpinActivity: ActivityComponent = ({
       scene.add(tunnel);
 
       for (let i = 0; i < 3; ++i)
-        addBarrier(availableBarriers.current['barrier-hollow']!.clone());
+        addBarrier(availableBarriers.current["barrier-hollow"]!.clone());
     });
   }, [addBarrier]);
 
@@ -195,7 +195,7 @@ const SpinActivity: ActivityComponent = ({
 
     var keyPressListener: number;
     if (onScreenJoystickPosition === OnScreenJoystickPosition.Right) {
-      keyPressListener = addControlEventListener('arrow-key-press', (keys) => {
+      keyPressListener = addControlEventListener("arrow-key-press", (keys) => {
         if (activityState.paused) return;
 
         const targetPosition = camera.position.clone();
@@ -222,7 +222,7 @@ const SpinActivity: ActivityComponent = ({
         }
       });
     } else if (onScreenJoystickPosition === OnScreenJoystickPosition.Left) {
-      keyPressListener = addControlEventListener('wasd-key-press', (keys) => {
+      keyPressListener = addControlEventListener("wasd-key-press", (keys) => {
         if (activityState.paused) return;
 
         const targetPosition = camera.position.clone();
@@ -251,31 +251,31 @@ const SpinActivity: ActivityComponent = ({
     }
 
     const physicalAxesChangeListener = addControlEventListener(
-      'left-physical-axes-change',
+      "left-physical-axes-change",
       (axes) =>
         onAxesChange(
           axes,
-          leftActiveGamepad?.sensitivityX || 0,
-          leftActiveGamepad?.sensitivityY || 0
+          leftGamepadOptions.sensitivityX,
+          leftGamepadOptions.sensitivityY
         )
     );
 
     var onScreenJoystickAxesChangeListener: number;
     if (onScreenJoystickPosition !== OnScreenJoystickPosition.Disabled)
       onScreenJoystickAxesChangeListener = addControlEventListener(
-        'on-screen-joystick-axes-change',
+        "on-screen-joystick-axes-change",
         (axes) => onAxesChange(axes, 50, 50)
       );
 
     var mouseAxesChangeListener: number;
     if (onScreenJoystickPosition === OnScreenJoystickPosition.Disabled)
       mouseAxesChangeListener = addControlEventListener(
-        'mouse-axes-change',
+        "mouse-axes-change",
         (axes) => onAxesChange(axes, mouseSensitivity, mouseSensitivity)
       );
 
     const speedChangeListener = addControlEventListener(
-      'speed-change',
+      "speed-change",
       (newSpeed) => {
         speed.current = (newSpeed + 2) * 0.15;
       }
@@ -294,9 +294,10 @@ const SpinActivity: ActivityComponent = ({
     activityState.paused,
     addControlEventListener,
     removeControlEventListener,
-    leftActiveGamepad,
     mouseSensitivity,
     onScreenJoystickPosition,
+    leftGamepadOptions.sensitivityX,
+    leftGamepadOptions.sensitivityY,
   ]);
 
   useEffect(() => {
@@ -306,41 +307,52 @@ const SpinActivity: ActivityComponent = ({
           new THREE.Vector2(camera.position.x, camera.position.y),
           camera
         );
-        if (reverseFlag === false){
+        if (reverseFlag === false) {
           camera.translateZ(-speed.current);
         } else {
           camera.translateZ(speed.current);
-          if (showRedOverlay === false){
+          if (showRedOverlay === false) {
             setReverseFlag(false);
           }
         }
 
         const currentBarrier = barriers.current[0];
-        if (raycaster.intersectObject(currentBarrier).length !== 0 && showRedOverlay === false) {
+        if (
+          raycaster.intersectObject(currentBarrier).length !== 0 &&
+          showRedOverlay === false
+        ) {
           setReverseFlag(true);
           activityActions.activityIncreaseMaxScore(1);
 
           setShowRedOverlay(true);
 
-          setTimeout(() => {
-            setShowRedOverlay(false);
-          }, 1000 / (speed.current * 3));
-          
+          setTimeout(
+            () => {
+              setShowRedOverlay(false);
+            },
+            1000 / (speed.current * 3)
+          );
+
           // removeBarrier(currentBarrier);
-        } else if (camera.position.z <= currentBarrier.position.z && reverseFlag === false) {
+        } else if (
+          camera.position.z <= currentBarrier.position.z &&
+          reverseFlag === false
+        ) {
           activityActions.activityIncreaseMaxScore(1);
 
-          if (currentBarrier.name !== 'barrier-hollow')
+          if (currentBarrier.name !== "barrier-hollow")
             activityActions.activityIncreaseScore(1);
           removeBarrier(currentBarrier);
         }
 
-        const material = (currentBarrier.material as THREE.MeshBasicMaterial).clone();        
-        material.color.set(0x4B565E);
+        const material = (
+          currentBarrier.material as THREE.MeshBasicMaterial
+        ).clone();
+        material.color.set(0x4b565e);
 
         if (
           activityState.trainingMode &&
-          currentBarrier.name !== 'barrier-hollow'
+          currentBarrier.name !== "barrier-hollow"
         ) {
           // const material = (currentBarrier.material as THREE.Material).clone();
           material.transparent = true;
@@ -365,13 +377,13 @@ const SpinActivity: ActivityComponent = ({
     addBarrier,
     removeBarrier,
     reverseFlag,
-    showRedOverlay
+    showRedOverlay,
   ]);
 
   return (
     <div
       {...rest}
-      className={appendClass('activity spin-activity', rest.className)}
+      className={appendClass("activity spin-activity", rest.className)}
       ref={containerRef}
     >
       {showRedOverlay && (
@@ -384,7 +396,7 @@ const SpinActivity: ActivityComponent = ({
       )}
       <img
         className="crosshair"
-        src={require('./images/svgs/target.svg').default}
+        src={require("./images/svgs/target.svg").default}
         alt="target"
       />
     </div>

@@ -2,9 +2,10 @@ import { useState } from "react";
 import { appendClass } from "../../../lib";
 
 interface DropdownProps extends React.HTMLAttributes<HTMLDivElement> {
-  options: string[];
+  options: { key: string; label: string }[];
   emptyLabel: string;
   selected: string;
+  align?: "left" | "center";
   onSelection?: (value: string) => void;
 }
 
@@ -12,6 +13,7 @@ const Dropdown: React.FC<DropdownProps> = ({
   options,
   emptyLabel,
   selected,
+  align = "center",
   onSelection,
   ...rest
 }) => {
@@ -30,7 +32,9 @@ const Dropdown: React.FC<DropdownProps> = ({
         }}
       >
         <div className="text-container">
-          {options.length > 0 ? selected : emptyLabel}
+          {options.length > 0
+            ? options.find((o) => o.key === selected)?.label
+            : emptyLabel}
         </div>
         <div className="arrow-container">
           <img
@@ -43,18 +47,25 @@ const Dropdown: React.FC<DropdownProps> = ({
       {expanded && (
         <ul className="dropdown-menu">
           {options
-            .filter((option) => option !== selected)
+            .filter((option) => option.key !== selected)
             .map((option, index) => (
               <button
                 key={index}
-                className="dropdown-item"
+                className={appendClass("dropdown-item")}
                 onClick={() => {
                   setExpanded(false);
 
-                  if (onSelection) onSelection(option);
+                  if (onSelection) onSelection(option.key);
                 }}
               >
-                <div className="text-container">{option}</div>
+                <div
+                  className={appendClass(
+                    "text-container",
+                    align === "left" ? "text-left" : "text-center"
+                  )}
+                >
+                  {option.label}
+                </div>
               </button>
             ))}
         </ul>

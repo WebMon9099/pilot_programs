@@ -1,7 +1,7 @@
-import { useMemo } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
-import { GlobalNavbar, Settings } from '../../components/global';
-import { ACTIVITIES } from '../../constants';
+import { useMemo } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
+import { GlobalNavbar, Settings } from "../../components/global";
+import { ACTIVITIES } from "../../constants";
 
 const SettingsPage: React.FC = () => {
   const location = useLocation();
@@ -15,8 +15,6 @@ const SettingsPage: React.FC = () => {
 
     return ACTIVITIES[activityName];
   }, [location.pathname]);
-
-  console.log('activityObject', activityObject);
 
   return (
     <div className="page settings-page flex flex-col">
